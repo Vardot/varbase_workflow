@@ -1,0 +1,10 @@
+name: Varbase content planner
+description: 'Varbase content planner.'
+type: module
+core: 8.x
+package: Varbase
+dependencies:
+  - content_planner:content_planner
+  - drupal:content_moderation
+  - scheduler:scheduler
+  - varbase_core:varbase_core

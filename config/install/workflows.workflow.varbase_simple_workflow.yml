@@ -6,14 +6,19 @@ dependencies:
     - node.type.page
   module:
     - content_moderation
-id: varbase_workflow
-label: 'Varbase  workflow'
+id: varbase_simple_workflow
+label: 'Varbase simple workflow'
 type: content_moderation
 type_settings:
   states:
-    draft:
+    archived:
       published: false
       default_revision: true
+      label: Archived
+      weight: 1
+    draft:
+      published: false
+      default_revision: false
       label: Draft
       weight: -1
     published:
@@ -22,6 +27,13 @@ type_settings:
       default_revision: true
       weight: 0
   transitions:
+    archive:
+      label: Archive
+      from:
+        - draft
+        - published
+      to: archived
+      weight: 1
     create_new_draft:
       label: 'Create New Draft'
       to: draft
@@ -35,6 +47,12 @@ type_settings:
       weight: 0
       from:
         - draft
+    restore:
+      label: 'Restore from archive'
+      from:
+        - archived
+      to: draft
+      weight: 2
   default_moderation_state: draft
   entity_types:
     node:

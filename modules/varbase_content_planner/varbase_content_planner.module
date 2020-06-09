@@ -1,0 +1,105 @@
+<?php
+
+/**
+ * @file
+ * Contains varbase_content_planner.module.
+ */
+
+use Drupal\Core\Template\Attribute;
+use Drupal\Core\Render\Element;
+
+/**
+ * Implements hook_theme().
+ */
+function varbase_content_planner_theme($existing, $type, $theme, $path) {
+  return [
+    'varbase_item_list' => [
+      'variables' => [
+        'items' => [],
+        'title' => '',
+        'list_type' => 'ul',
+        'wrapper_attributes' => [],
+        'attributes' => [],
+        'empty' => NULL,
+        'context' => [],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function varbase_content_planner_theme_suggestions_item_list_alter(&$suggestions, $variables) {
+  if (isset($variables['items']['content_calendar']) || isset($variables['items']['content_kanban'])) {
+    $suggestions[] = 'varbase_item_list';
+  }
+}
+
+/**
+ * Prepares variables for item list templates.
+ *
+ * Default template: item-list.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - items: An array of items to be displayed in the list. Each item can be
+ *     either a string or a render array. If #type, #theme, or #markup
+ *     properties are not specified for child render arrays, they will be
+ *     inherited from the parent list, allowing callers to specify larger
+ *     nested lists without having to explicitly specify and repeat the
+ *     render properties for all nested child lists.
+ *   - title: A title to be prepended to the list.
+ *   - list_type: The type of list to return (e.g. "ul", "ol").
+ *   - wrapper_attributes: HTML attributes to be applied to the list wrapper.
+ *
+ * @see https://www.drupal.org/node/1842756
+ */
+function varbase_content_planner_preprocess_varbase_item_list(&$variables) {
+  $variables['wrapper_attributes'] = new Attribute($variables['wrapper_attributes']);
+  foreach ($variables['items'] as &$item) {
+    $attributes = [];
+    // If the item value is an array, then it is a render array.
+    if (is_array($item)) {
+      // List items support attributes via the '#wrapper_attributes' property.
+      if (isset($item['#wrapper_attributes'])) {
+        $attributes = $item['#wrapper_attributes'];
+      }
+      // Determine whether there are any child elements in the item that are not
+      // fully-specified render arrays. If there are any, then the child
+      // elements present nested lists and we automatically inherit the render
+      // array properties of the current list to them.
+      foreach (Element::children($item) as $key) {
+        $child = &$item[$key];
+        // If this child element does not specify how it can be rendered, then
+        // we need to inherit the render properties of the current list.
+        if (!isset($child['#type']) && !isset($child['#theme']) && !isset($child['#markup'])) {
+          // Since item-list.html.twig supports both strings and render arrays
+          // as items, the items of the nested list may have been specified as
+          // the child elements of the nested list, instead of #items. For
+          // convenience, we automatically move them into #items.
+          if (!isset($child['#items'])) {
+            // This is the same condition as in
+            // \Drupal\Core\Render\Element::children(), which cannot be used
+            // here, since it triggers an error on string values.
+            foreach ($child as $child_key => $child_value) {
+              if (is_int($child_key) || $child_key === '' || $child_key[0] !== '#') {
+                $child['#items'][$child_key] = $child_value;
+                unset($child[$child_key]);
+              }
+            }
+          }
+          // Lastly, inherit the original theme variables of the current list.
+          $child['#theme'] = $variables['theme_hook_original'];
+          $child['#list_type'] = $variables['list_type'];
+        }
+      }
+    }
+
+    // Set the item's value and attributes for the template.
+    $item = [
+      'value' => $item,
+      'attributes' => new Attribute($attributes),
+    ];
+  }
+}
