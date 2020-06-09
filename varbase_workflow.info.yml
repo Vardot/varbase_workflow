@@ -1,0 +1,9 @@
+name: 'Varbase workflow'
+description: 'Varbase workflow module.'
+type: module
+package: Varbase
+core_version_requirement: ^8 || ^9
+dependencies:
+  - drupal:content_moderation
+  - moderation_sidebar:moderation_sidebar
+  - varbase_landing:varbase_landing

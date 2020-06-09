@@ -1,0 +1,52 @@
+{
+  "name": "drupal/varbase_workflow",
+  "description": "This is the Varbase workflow module",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/varbase_workflow",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "Vardot",
+      "homepage": "https://www.drupal.org/vardot",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/varbase_workflow",
+    "source": "http://cgit.drupalcode.org/varbase_workflow"
+  },
+  "repositories": {
+    "drupal": {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+      },
+    "assets": {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  },
+  "require": {
+    "composer/installers": "~1.0",
+    "oomphinc/composer-installers-extender": "~1.0",
+    "cweagans/composer-patches": "~1.0",
+    "drupal/drupal-library-installer-plugin": "^0.3",
+    "drupal/workflow": "^1.4",
+    "drupal/moderation_sidebar": "^1.4",
+    "drupal/varbase_landing": "^7.4"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-8.x-8.x": "8.8.x-dev"
+    },
+    "installer-types": [
+      "bower-asset",
+      "npm-asset"
+    ],
+    "enable-patching": true,
+    "composer-exit-on-patch-failure": true,
+    "patchLevel": {
+       "drupal/core": "-p2"
+    }
+  }
+}
