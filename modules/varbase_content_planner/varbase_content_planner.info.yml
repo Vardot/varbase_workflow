@@ -8,3 +8,4 @@ dependencies:
   - drupal:content_moderation
   - scheduler:scheduler
   - varbase_core:varbase_core
+  - varbase_workflow:varbase_workflow
