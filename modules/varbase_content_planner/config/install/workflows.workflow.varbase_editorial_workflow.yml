@@ -10,12 +10,12 @@ type_settings:
   states:
     archived:
       published: false
-      default_revision: false
+      default_revision: true
       label: Archived
       weight: 0
     draft:
       published: false
-      default_revision: true
+      default_revision: false
       label: Draft
       weight: -3
     in_review:
