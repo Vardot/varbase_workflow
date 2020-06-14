@@ -23,7 +23,6 @@ Out of the box, it offers two workflows for content moderation:
   moderation transitions using two clicks only.
     Offered using Moderation Sidebar module.
 * A submodule that wraps around the Content Planner module offering:
-      * - Customizable Content Planner dashboard
-      * - Drag-n-drop calendar for adding, scheduling, and rescheduling content
-      * - Drag-n-drop Kanban for any workflow
-
+* - Customizable Content Planner dashboard
+* - Drag-n-drop calendar for adding, scheduling, and rescheduling content
+* - Drag-n-drop Kanban for any workflow

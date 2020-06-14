@@ -55,7 +55,7 @@ function varbase_content_planner_theme_suggestions_item_list_alter(&$suggestions
  *
  * @see https://www.drupal.org/node/1842756
  */
-function varbase_content_planner_preprocess_varbase_item_list(&$variables) {
+function varbase_content_planner_preprocess_varbase_item_list(array &$variables) {
   $variables['wrapper_attributes'] = new Attribute($variables['wrapper_attributes']);
   foreach ($variables['items'] as &$item) {
     $attributes = [];
