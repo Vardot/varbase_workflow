@@ -32,7 +32,6 @@
     "cweagans/composer-patches": "~1.0",
     "drupal/drupal-library-installer-plugin": "^0.3",
     "drupal/core": "^8 || ^9 || ~10.0.0",
-    "drupal/workflow": "~1.0",
     "drupal/moderation_sidebar": "~1.0",
     "drupal/content_planner": "1.0-beta11",
     "drupal/scheduler": "~1.0",
