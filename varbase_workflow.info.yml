@@ -7,3 +7,4 @@ dependencies:
   - drupal:content_moderation
   - moderation_sidebar:moderation_sidebar
   - scheduler_content_moderation_integration:scheduler_content_moderation_integration
+  - events_log_track:event_log_track_workflows
