@@ -61,6 +61,19 @@ function varbase_workflow_form_alter(array &$form, FormStateInterface $form_stat
     }
 
   }
+  elseif (preg_match('/^node_.*._form$/', $form_id) && isset($form['moderation_state'])) {
+
+    if (isset($form['publish_state'])) {
+      $form['publish_state']['#access'] = FALSE;
+      $form['publish_state']['widget'][0]['#default_value'] = 'published';
+    }
+
+    if (isset($form['unpublish_state'])) {
+      $form['unpublish_state']['#access'] = FALSE;
+      $form['unpublish_state']['widget'][0]['#default_value'] = 'archived';
+    }
+
+  }
 
   return $form;
 }
