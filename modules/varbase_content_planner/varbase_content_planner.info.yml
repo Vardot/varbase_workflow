@@ -1,8 +1,8 @@
-name: Varbase content planner
-description: 'Varbase content planner.'
+name: 'Varbase Content Planner'
+description: 'This module wraps around the Content Planner module offering Customizable Content Planner dashboard of Drag-n-drop calendar for adding, scheduling, and rescheduling content, Drag-n-drop Kanban for any workflow.'
 type: module
-core_version_requirement: ^8 || ^9
 package: Varbase
+core_version_requirement: ^8 || ^9
 dependencies:
   - content_planner:content_planner
   - drupal:content_moderation

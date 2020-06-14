@@ -1,6 +1,6 @@
 {
   "name": "drupal/varbase_workflow",
-  "description": "This is the Varbase workflow module",
+  "description": "Varbase Workflow includes a toolkit for robust, quick, and enterprise content moderation features. Varbase Workflow is useful for small sites with simple publishing workflow to enterprise complex publishing workflows, all thanks to leveraging Drupal 8 / Drupal 9 Content Moderation and Workflow modules.",
   "type": "drupal-module",
   "homepage": "https://www.drupal.org/project/varbase_workflow",
   "license": "GPL-2.0-or-later",
