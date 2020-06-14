@@ -31,26 +31,20 @@
     "oomphinc/composer-installers-extender": "~1.0",
     "cweagans/composer-patches": "~1.0",
     "drupal/drupal-library-installer-plugin": "^0.3",
-    "drupal/workflow": "^1.4",
-    "drupal/moderation_sidebar": "^1.4",
-    "drupal/varbase_landing": "^7.4",
-    "drupal/content_planner": "^1.0@beta",
-    "drupal/scheduler": "^1.1",
-    "drupal/content_moderation_notifications": "^3.2"
+    "drupal/core": "^8 || ^9 || ~10.0.0",
+    "drupal/workflow": "~1.0",
+    "drupal/moderation_sidebar": "~1.0",
+    "drupal/content_planner": "1.0-beta11",
+    "drupal/scheduler": "~1.0",
+    "drupal/content_moderation_notifications": "~3.0"
   },
   "extra": {
-    "branch-alias": {
-      "dev-8.x-8.x": "8.8.x-dev"
-    },
     "installer-types": [
       "bower-asset",
       "npm-asset"
     ],
     "enable-patching": true,
     "composer-exit-on-patch-failure": true,
-    "patchLevel": {
-       "drupal/core": "-p2"
-    },
     "patches": {
       "drupal/content_planner": {
         "Issue #3129606 Access bypass in Kanban":

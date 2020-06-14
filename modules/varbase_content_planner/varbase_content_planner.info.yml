@@ -1,7 +1,7 @@
 name: Varbase content planner
 description: 'Varbase content planner.'
 type: module
-core: 8.x
+core_version_requirement: ^8 || ^9
 package: Varbase
 dependencies:
   - content_planner:content_planner

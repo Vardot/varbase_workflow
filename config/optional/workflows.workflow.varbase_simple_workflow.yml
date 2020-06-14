@@ -1,9 +1,6 @@
 langcode: en
 status: true
 dependencies:
-  config:
-    - node.type.landing_page
-    - node.type.page
   module:
     - content_moderation
 id: varbase_simple_workflow
