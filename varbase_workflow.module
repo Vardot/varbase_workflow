@@ -1,0 +1,99 @@
+<?php
+
+/**
+ * @file
+ * Contains varbase_workflow.module.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter().
+ */
+function varbase_workflow_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+
+  if ($form_id == 'node_type_add_form' || $form_id == 'node_type_edit_form') {
+
+    $default_workflow_option = '_none';
+    // List of workflows.workflow.* config in the site.
+    $content_moderation_workflow_options = ['_none' => t('- none -')];
+    $config_factory = \Drupal::service('config.factory');
+    $workflows = $config_factory->listAll('workflows.workflow.');
+    foreach ($workflows as $workflow) {
+      $content_moderation_workflow_options[$workflow] = $config_factory->getEditable($workflow)->get('label');
+      if ($workflow == 'workflows.workflow.varbase_simple_workflow'
+          && $default_workflow_option == '_none') {
+        $default_workflow_option = 'workflows.workflow.varbase_simple_workflow';
+      }
+    }
+
+    $form['workflow']['content_moderation_workflow'] = [
+      '#type' => 'select',
+      '#title' => t('Content moderation workflow'),
+      '#default_value' => 'workflows.workflow.varbase_simple_workflow',
+      '#options' => $content_moderation_workflow_options,
+      '#description' => t('Select the workflow you would like to use for this content type.'),
+    ];
+
+    if ($form_id == 'node_type_add_form') {
+      foreach (array_keys($form['actions']) as $action) {
+        if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+          $form['actions'][$action]['#submit'][] = '_varbase_workflow_node_type_add_form';
+        }
+      }
+    }
+    else {
+      $form['workflow']['content_moderation_workflow']['#attributes']['readonly'] = 'readonly';
+      $form['workflow']['content_moderation_workflow']['#attributes']['disabled'] = 'disabled';
+
+      foreach ($workflows as $workflow) {
+        $workflow_type_settings = $config_factory->getEditable($workflow)->get('type_settings');
+        $node_type = $form_state->getFormObject()->getEntity()->get('type');
+
+        if (isset($workflow_type_settings['entity_types'])
+          && isset($workflow_type_settings['entity_types']['node'])) {
+
+          if (in_array($node_type, $workflow_type_settings['entity_types']['node'])) {
+            $form['workflow']['content_moderation_workflow']['#default_value'] = $workflow;
+          }
+        }
+      }
+    }
+
+  }
+
+  return $form;
+}
+
+/**
+ * Varbase workflow node type add form.
+ */
+function _varbase_workflow_node_type_add_form(array &$form, FormStateInterface &$form_state) {
+
+  $node_type = $form_state->getFormObject()->getEntity()->get('type');
+  $content_moderation_workflow = $form_state->getFormObject()->getEntity()->get('content_moderation_workflow');
+
+  if (isset($content_moderation_workflow)
+      && $content_moderation_workflow != ''
+      && $content_moderation_workflow != '_none') {
+
+    $config_factory = \Drupal::service('config.factory');
+    $workflow_type_settings = $config_factory->getEditable($content_moderation_workflow)->get('type_settings');
+
+    if (isset($workflow_type_settings['entity_types'])) {
+      if (isset($workflow_type_settings['entity_types']['node'])) {
+        if (!in_array($node_type, $workflow_type_settings['entity_types']['node'])) {
+          $workflow_type_settings['entity_types']['node'][] = $node_type;
+          $config_factory->getEditable($content_moderation_workflow)->set('type_settings', $workflow_type_settings)->save(TRUE);
+        }
+      }
+      else {
+        $workflow_type_settings['entity_types']['node'] = [];
+        $workflow_type_settings['entity_types']['node'][] = $node_type;
+        $config_factory->getEditable($content_moderation_workflow)->set('type_settings', $workflow_type_settings)->save(TRUE);
+      }
+
+    }
+  }
+
+}
