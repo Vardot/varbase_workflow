@@ -6,6 +6,8 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
 
 /**
  * Implements hook_form_alter().
@@ -27,12 +29,13 @@ function varbase_workflow_form_alter(array &$form, FormStateInterface $form_stat
       }
     }
 
+    $workflows_configuration_page = Link::fromTextAndUrl(t('Workflows configuration page'), new Url('entity.workflow.collection'));
     $form['workflow']['content_moderation_workflow'] = [
       '#type' => 'select',
       '#title' => t('Content moderation workflow'),
-      '#default_value' => 'workflows.workflow.varbase_simple_workflow',
+      '#default_value' => $default_workflow_option,
       '#options' => $content_moderation_workflow_options,
-      '#description' => t('Select the workflow you would like to use for this content type.'),
+      '#description' => t('Select the workflow you would like to use for this content type. Once selected, you can only change it for this content type from the @link.', ['@link' => $workflows_configuration_page->toString()]),
     ];
 
     if ($form_id == 'node_type_add_form') {
@@ -46,6 +49,7 @@ function varbase_workflow_form_alter(array &$form, FormStateInterface $form_stat
       $form['workflow']['content_moderation_workflow']['#attributes']['readonly'] = 'readonly';
       $form['workflow']['content_moderation_workflow']['#attributes']['disabled'] = 'disabled';
 
+      $form['workflow']['content_moderation_workflow']['#default_value'] = '_none';
       foreach ($workflows as $workflow) {
         $workflow_type_settings = $config_factory->getEditable($workflow)->get('type_settings');
         $node_type = $form_state->getFormObject()->getEntity()->get('type');
