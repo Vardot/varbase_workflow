@@ -32,7 +32,7 @@
     "cweagans/composer-patches": "~1.0",
     "drupal/drupal-library-installer-plugin": "^0.3",
     "drupal/core": "^8 || ^9 || ~10.0.0",
-    "drupal/moderation_sidebar": "~1.0",
+    "drupal/moderation_sidebar": "1.4",
     "drupal/content_planner": "1.0-beta11",
     "drupal/scheduler": "~1.0",
     "drupal/content_moderation_notifications": "~3.0",
@@ -53,6 +53,10 @@
         "https://www.drupal.org/files/issues/2020-05-06/kanban-published-to-draft-workflow-issue-3010615-16.patch",
         "Issue #3091413 Extend Kanban Filter Form by Content Type filter":
         "https://www.drupal.org/files/issues/2020-05-06/add_content_type_filter-3091413-3.patch"
+      },
+      "drupal/moderation_sidebar": {
+        "Issue #3157219: Fix RTL Moderation Sidebar style":
+        "https://www.drupal.org/files/issues/2020-07-06/3157219-3.patch"
       }
     }
   }
