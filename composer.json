@@ -33,7 +33,7 @@
     "drupal/drupal-library-installer-plugin": "^0.3",
     "drupal/core": "^8 || ^9 || ~10.0.0",
     "drupal/moderation_sidebar": "1.4",
-    "drupal/content_planner": "1.0-beta11",
+    "drupal/content_planner": "1.0-beta12",
     "drupal/scheduler": "~1.0",
     "drupal/content_moderation_notifications": "~3.0",
     "drupal/scheduler_content_moderation_integration": "~1.0" 
@@ -47,12 +47,8 @@
     "composer-exit-on-patch-failure": true,
     "patches": {
       "drupal/content_planner": {
-        "Issue #3129606 Access bypass in Kanban":
-        "https://www.drupal.org/files/issues/2020-06-07/access_fix_bypass_in_Kanban-3129606-4.patch",
         "Issue #3010615 Kanban Published to Draft workflow Issue":
-        "https://www.drupal.org/files/issues/2020-05-06/kanban-published-to-draft-workflow-issue-3010615-16.patch",
-        "Issue #3091413 Extend Kanban Filter Form by Content Type filter":
-        "https://www.drupal.org/files/issues/2020-05-06/add_content_type_filter-3091413-3.patch"
+        "https://www.drupal.org/files/issues/2020-05-06/kanban-published-to-draft-workflow-issue-3010615-16.patch"
       },
       "drupal/moderation_sidebar": {
         "Issue #3157219: Fix RTL Moderation Sidebar style":
