@@ -9,4 +9,4 @@ dependencies:
   - moderation_sidebar:moderation_sidebar
 install:
   - scheduler_content_moderation_integration
-  - event_log_track_workflows
+  - admin_audit_trail_workflows
