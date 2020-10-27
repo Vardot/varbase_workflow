@@ -48,7 +48,9 @@
     "patches": {
       "drupal/content_planner": {
         "Issue #3010615 Kanban Published to Draft workflow Issue":
-        "https://www.drupal.org/files/issues/2020-05-06/kanban-published-to-draft-workflow-issue-3010615-16.patch"
+        "https://www.drupal.org/files/issues/2020-05-06/kanban-published-to-draft-workflow-issue-3010615-16.patch",
+        "Issue #3167669: Fix Drupal 9 compatibility for the Content Planner sub modules":
+        "https://www.drupal.org/files/issues/2020-09-04/content_planner-core_incompatibility-3167669-2.patch"
       },
       "drupal/moderation_sidebar": {
         "Issue #3157219: Fix RTL Moderation Sidebar style":
