@@ -30,7 +30,7 @@
     "composer/installers": "~1.0 || ~2.0",
     "oomphinc/composer-installers-extender": "~1.0 || ~2.0",
     "cweagans/composer-patches": "~1.0",
-    "drupal/core": "^8.8.0 || ~9.0.0",
+    "drupal/core": "^8 || ~9.0",
     "drupal/moderation_sidebar": "1.4",
     "drupal/content_planner": "1.0-beta12",
     "drupal/scheduler": "~1.0",
