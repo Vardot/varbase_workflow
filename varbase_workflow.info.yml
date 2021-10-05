@@ -1,5 +1,5 @@
-name: 'Varbase Workflow'
-description: 'Provides a toolkit for robust, quick, and enterprise content moderation features.'
+name: "Varbase Workflow"
+description: "Provides a toolkit for robust, quick, and enterprise content moderation features."
 type: module
 package: Varbase
 core_version_requirement: ^8 || ^9

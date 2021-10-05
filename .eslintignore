@@ -1,0 +1,5 @@
+**/*.min.js
+**/gulpfile.js
+**/node_modules
+drupalci.yml
+**/drupalci.yml

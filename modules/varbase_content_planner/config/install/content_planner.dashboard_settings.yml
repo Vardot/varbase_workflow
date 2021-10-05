@@ -1,22 +1,22 @@
 blocks:
   content_state_statistic:
     plugin_id: content_state_statistic
-    title: ''
-    weight: '0'
+    title: ""
+    weight: "0"
     configured: true
     plugin_specific_config:
       workflow_id: varbase_simple_workflow
   recent_calendar_content_block:
     plugin_id: recent_calendar_content_block
-    title: ''
-    weight: '0'
+    title: ""
+    weight: "0"
     configured: true
     plugin_specific_config:
-      last_publications_limit: '3'
-      next_publications_limit: '3'
+      last_publications_limit: "3"
+      next_publications_limit: "3"
   recent_kanban_activities:
     plugin_id: recent_kanban_activities
     title: null
     weight: 0
     configured: false
-    plugin_specific_config: {  }
+    plugin_specific_config: {}
