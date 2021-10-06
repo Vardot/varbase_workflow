@@ -77,8 +77,7 @@ class VarbaseWorkflowTest extends WebDriverTestBase {
     $page->fillField('name', 'Post');
     $this->assertSession()->assertWaitOnAjaxRequest();
 
-    $page = $this->getSession()->getPage();
-    $edit_type_button = $page->find('css', '#edit-name-machine-name-suffix .admin-link');
+    $edit_type_button = $this->assertSession()->waitForElementVisible('css', '#edit-name-machine-name-suffix .link');
     $edit_type_button->click();
     $this->assertSession()->assertWaitOnAjaxRequest();
     $page->fillField('type', 'post');
@@ -135,8 +134,7 @@ class VarbaseWorkflowTest extends WebDriverTestBase {
     $page->fillField('name', 'News');
     $this->assertSession()->assertWaitOnAjaxRequest();
 
-    $page = $this->getSession()->getPage();
-    $edit_type_button = $page->find('css', '#edit-name-machine-name-suffix .admin-link');
+    $edit_type_button = $this->assertSession()->waitForElementVisible('css', '#edit-name-machine-name-suffix .link');
     $edit_type_button->click();
     $this->assertSession()->assertWaitOnAjaxRequest();
     $page->fillField('type', 'news');
