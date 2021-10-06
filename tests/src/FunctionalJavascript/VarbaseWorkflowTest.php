@@ -35,6 +35,7 @@ class VarbaseWorkflowTest extends WebDriverTestBase {
   protected static $modules = [
     'workflows',
     'content_moderation',
+    'moderation_sidebar',
     'scheduler_content_moderation_integration',
     'admin_audit_trail_workflows',
     'varbase_workflow',
