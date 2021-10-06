@@ -18,6 +18,8 @@ build:
           - rm composer.lock
           - composer require --dev phpspec/prophecy-phpunit:*
           - composer require phpunit/phpunit:~9.0 --with-all-dependencies
+          - composer require drupal/core-dev:~9.0
+          - composer require drupal/varbase_code:9.0.x-dev
           - composer require drupal/admin_audit_trail:1.0.x-dev
           - rm -rf ${SOURCE_DIR}/modules/contrib/entity_usage/tests
           - cat composer.json
