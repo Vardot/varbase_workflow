@@ -32,7 +32,7 @@
     "cweagans/composer-patches": "~1.0",
     "drupal/core": "~8.0 || ~9.0",
     "vardot/entity-definition-update-manager": "~1.0",
-    "drupal/moderation_sidebar": "1.4",
+    "drupal/moderation_sidebar": "~1.0",
     "drupal/content_planner": "~1.0",
     "drupal/scheduler": "~1.0",
     "drupal/content_moderation_notifications": "~3.0",
@@ -44,12 +44,6 @@
       "npm-asset"
     ],
     "enable-patching": true,
-    "composer-exit-on-patch-failure": true,
-    "patches": {
-      "drupal/moderation_sidebar": {
-        "Issue #3157219: Fix RTL Moderation Sidebar style":
-        "https://www.drupal.org/files/issues/2020-07-06/3157219-3.patch"
-      }
-    }
+    "composer-exit-on-patch-failure": true
   }
 }
