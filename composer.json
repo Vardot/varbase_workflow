@@ -34,7 +34,7 @@
     "vardot/entity-definition-update-manager": "~1.0",
     "vardot/module-installer-factory": "~1.0",
     "drupal/moderation_sidebar": "~1.0",
-    "drupal/content_planner": "~1.0",
+    "drupal/content_planner": "1.0-beta16",
     "drupal/scheduler": "~1.0",
     "drupal/content_moderation_notifications": "~3.0",
     "drupal/scheduler_content_moderation_integration": "~1.0",
@@ -46,6 +46,12 @@
       "npm-asset"
     ],
     "enable-patching": true,
-    "composer-exit-on-patch-failure": true
+    "composer-exit-on-patch-failure": true,
+    "patches": {
+      "drupal/content_planner": {
+        "Issue #3290883: Fix deprecation issue for the mysql driver on Drupal 9.4.0":
+        "https://www.drupal.org/files/issues/2022-06-16/3290883-3.patch"
+      }
+    }
   }
 }
