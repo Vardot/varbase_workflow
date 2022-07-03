@@ -33,7 +33,7 @@
     "drupal/core": "~8.0 || ~9.0",
     "vardot/entity-definition-update-manager": "~1.0",
     "vardot/module-installer-factory": "~1.0",
-    "drupal/moderation_sidebar": "~1.0",
+    "drupal/moderation_sidebar": "1.5",
     "drupal/content_planner": "~1.0",
     "drupal/scheduler": "~1.0",
     "drupal/content_moderation_notifications": "~3.0",
