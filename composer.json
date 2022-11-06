@@ -33,7 +33,7 @@
     "drupal/core": "~9.0 || ~10.0",
     "vardot/entity-definition-update-manager": "~1.0",
     "vardot/module-installer-factory": "~1.0",
-    "drupal/moderation_sidebar": "1.5",
+    "drupal/moderation_sidebar": "~1.0",
     "drupal/content_planner": "~1.0",
     "drupal/scheduler": "~1.0",
     "drupal/content_moderation_notifications": "~3.0",
@@ -47,11 +47,6 @@
     ],
     "enable-patching": true,
     "composer-exit-on-patch-failure": true,
-    "patches": {
-      "drupal/moderation_sidebar": {
-        "Issue #3264639: Fix can not preview a new node":
-        "https://www.drupal.org/files/issues/2022-02-16/preview-new-node-3264639-2.patch"
-      }
-    }
+    "patches": { }
   }
 }
