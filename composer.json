@@ -35,9 +35,9 @@
     "vardot/module-installer-factory": "~1.0",
     "drupal/moderation_sidebar": "~1.0",
     "drupal/content_planner": "~1.0",
-    "drupal/scheduler": "~2.0",
+    "drupal/scheduler": "~1.0",
     "drupal/content_moderation_notifications": "~3.0",
-    "drupal/scheduler_content_moderation_integration": "2.0.0-alpha1",
+    "drupal/scheduler_content_moderation_integration": "~1.0",
     "drupal/admin_audit_trail": "~1.0"
   },
   "extra": {
@@ -47,11 +47,6 @@
     ],
     "enable-patching": true,
     "composer-exit-on-patch-failure": true,
-    "patches": {
-      "drupal/scheduler_content_moderation_integration": {
-        "Issue #3317999: Fix It is impossible to add media for node via media library if Scheduler content moderation integration module is enabled":
-        "https://www.drupal.org/files/issues/2022-11-06/3317999-4.patch"
-      }
-    }
+    "patches": {}
   }
 }
