@@ -36,8 +36,8 @@
     "drupal/moderation_sidebar": "~1.0",
     "drupal/content_planner": "~1.0",
     "drupal/scheduler": "~2.0",
+    "drupal/scheduler_content_moderation_integration": "~2.0",
     "drupal/content_moderation_notifications": "~3.0",
-    "drupal/scheduler_content_moderation_integration": "~1.0",
     "drupal/admin_audit_trail": "~1.0"
   },
   "extra": {
