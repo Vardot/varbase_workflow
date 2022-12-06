@@ -47,11 +47,6 @@
     ],
     "enable-patching": true,
     "composer-exit-on-patch-failure": true,
-    "patches": {
-      "drupal/scheduler_content_moderation_integration": {
-        "Issue #3317999: It is impossible to add media for node via media library if Scheduler content moderation integration module is enabled":
-        "https://git.drupalcode.org/project/scheduler_content_moderation_integration/-/merge_requests/29.diff"
-      }
-    }
+    "patches": { }
   }
 }
