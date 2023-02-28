@@ -1,0 +1,3 @@
+id: site_admin
+permissions:
+  - 'view content planner dashboard'

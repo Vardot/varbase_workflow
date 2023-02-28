@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update for Varbase Content Planner module.
+ */
+
+use Vardot\Installer\ModuleInstallerFactory;
+
+/**
+ * Implements hook_install().
+ */
+function varbase_content_planner_install() {
+
+  // Add permissions.
+  ModuleInstallerFactory::addPermissions('varbase_content_planner');
+
+}
