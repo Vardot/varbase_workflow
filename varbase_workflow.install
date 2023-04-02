@@ -13,8 +13,7 @@ use Vardot\Installer\ModuleInstallerFactory;
  */
 function varbase_workflow_install() {
 
-  // Processer for install: in varbase_workflow.info.yml file using ModuleInstallerFactory.
-  // ---------------------------------------------------------------------------.
+  // Processor for install: in varbase_workflow.info.yml file.
   ModuleInstallerFactory::installList('varbase_workflow');
 
   // Install optional configs.
@@ -56,6 +55,6 @@ function varbase_workflow_update_82001() {
  */
 function varbase_workflow_update_90001() {
   // Set the weight of the module after installation of list of modules.
-  // To make sure that any hook or event subscriber workes after all used modules.
+  // To make sure that any hook or event subscriber workers after all used modules.
   ModuleInstallerFactory::setModuleWeightAfterInstallation('varbase_workflow');
 }
