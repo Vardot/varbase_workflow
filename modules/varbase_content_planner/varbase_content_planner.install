@@ -5,8 +5,8 @@
  * Contains install and update for Varbase Content Planner module.
  */
 
- use Vardot\Entity\EntityDefinitionUpdateManager;
- use Vardot\Installer\ModuleInstallerFactory;
+use Vardot\Entity\EntityDefinitionUpdateManager;
+use Vardot\Installer\ModuleInstallerFactory;
 
 /**
  * Implements hook_install().
