@@ -17,6 +17,7 @@ function varbase_workflow_install() {
   ModuleInstallerFactory::installList('varbase_workflow');
 
   // Install optional configs.
+  ModuleInstallerFactory::importConfigsFromScanedDirectory('varbase_workflow', '/^.*(moderated_content.yml)$/i');
   ModuleInstallerFactory::importConfigsFromScanedDirectory('varbase_workflow', '/^.*(settings.yml)$/i');
 
   // Entity updates to clear up any mismatched entity and/or field definitions
