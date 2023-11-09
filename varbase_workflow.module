@@ -111,8 +111,10 @@ function _varbase_workflow_node_type_add_form(array &$form, FormStateInterface &
         $config_factory->getEditable($content_moderation_workflow)->set('type_settings', $workflow_type_settings)->save(TRUE);
       }
 
-      // Entity updates to clear up any mismatched entity and/or field definitions
-      // And Fix changes were detected in the entity type and field definitions.
+      // Entity updates to clear up any mismatched entity
+      // and/or field definitions
+      // And Fix changes were detected in the entity type
+      // and field definitions.
       \Drupal::classResolver()
         ->getInstanceFromDefinition(EntityDefinitionUpdateManager::class)
         ->applyUpdates();
