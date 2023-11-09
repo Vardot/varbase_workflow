@@ -150,8 +150,8 @@ class VarbaseWorkflowTest extends WebDriverTestBase {
       'type' => 'news',
       'body' => [
          [
-          'value' => 'Test body for test news content.',
-        ],
+           'value' => 'Test body for test news content.',
+         ],
       ],
     ]);
 
