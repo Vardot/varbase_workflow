@@ -1,11 +1,7 @@
 ### Problem/Motivation
 
 #### Steps to reproduce
-```
-  Given 
-   When 
-   Then 
-```
+
 
 ### Proposed resolution
 
@@ -17,6 +13,7 @@
 - [ ] Automated unit/functional testing coverage
 - [ ] Developer Documentation support on feature change/addition
 - [ ] User Guide Documentation support on feature change/addition
+- [ ] UX/UI designer responsibilities
 - [ ] Accessibility and Readability
 - [ ] Code review from 1 Varbase core team member
 - [ ] Full testing and approval
