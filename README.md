@@ -3,7 +3,7 @@
 Varbase Workflow includes a toolkit for robust, quick, and enterprise content
  moderation features. Varbase Workflow is useful for small sites with simple
  publishing workflow to enterprise complex publishing workflows, all thanks
- to leveraging Drupal 8 / Drupal 9 Content Moderation and Workflow modules.
+ to leveraging Drupal Content Moderation and Workflow modules.
 
 Out of the box, it offers two workflows for content moderation:
 
