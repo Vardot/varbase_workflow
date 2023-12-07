@@ -1,0 +1,10 @@
+varbase_workflow.settings:
+  type: config_object
+  label: "Varbase Workflow settings"
+  mapping:
+    limited_applicable_entity_types:
+      type: sequence
+      label: "Access unpublished limited applicable entity types"
+      entity_type:
+        type: string
+        label: "Entity type"

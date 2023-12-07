@@ -1,0 +1,4 @@
+varbase_workflow.settings:
+  title: "Varbase Workflow settings"
+  route_name: varbase_core.settings_index
+  base_route: varbase_workflow.settings

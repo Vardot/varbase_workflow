@@ -1,0 +1,5 @@
+varbase_workflow.settings:
+  title: "Varbase Workflow settings"
+  description: "Configuring Varbase Workflow."
+  parent: varbase_core.settings_index
+  route_name: varbase_workflow.settings

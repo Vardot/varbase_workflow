@@ -33,8 +33,7 @@ function varbase_workflow_install() {
   // Add permissions.
   ModuleInstallerFactory::addPermissions('varbase_workflow');
 
-  // Grant new access unpublished permissions for anonymous and all authenticated user roles
-  grant_access_unpublished_permissions('anonymous');
-  grant_access_unpublished_permissions('authenticated');
+  // Auto grant access unpublished for limited applicable entity types.
+  varbase_workflow__auto_grant_access_unpublished();
 
 }

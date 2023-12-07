@@ -1,0 +1,8 @@
+limited_applicable_entity_types:
+  block_content: 0
+  entity_subqueue: 0
+  media: 0
+  menu_link_content: 0
+  node: 1
+  paragraphs_library_item: 0
+  taxonomy_term: 1

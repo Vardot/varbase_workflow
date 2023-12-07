@@ -1,0 +1,7 @@
+varbase_workflow.settings:
+  path: "/admin/config/varbase/varbase-workflow"
+  defaults:
+    _form: '\Drupal\varbase_workflow\Form\VarbaseWorkflowSettingsForm'
+    _title: "Varbase Workflow Settings"
+  requirements:
+    _permission: "administer varbase workflow"

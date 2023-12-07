@@ -10,6 +10,9 @@ use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Vardot\Entity\EntityDefinitionUpdateManager;
 
+// Include all helpers.
+include_once __DIR__ . '/includes/helpers.inc';
+
 /**
  * Implements hook_form_alter().
  */
@@ -122,4 +125,14 @@ function _varbase_workflow_node_type_add_form(array &$form, FormStateInterface &
     }
   }
 
+}
+
+/**
+ * Implements hook_entity_bundle_create().
+ */
+function varbase_workflow_entity_bundle_create($entity_type_id, $bundle) {
+
+  // Grant new access unpublished permissions for anonymous and all authenticated user roles.
+  varbase_workflow__grant_access_unpublished_permissions('anonymous', $entity_type_id, $bundle);
+  varbase_workflow__grant_access_unpublished_permissions('authenticated', $entity_type_id, $bundle);
 }
