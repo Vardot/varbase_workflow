@@ -24,6 +24,8 @@ function varbase_workflow_install() {
   ModuleInstallerFactory::importConfigsFromScanedDirectory('varbase_workflow', '/^.*(moderated_content.yml)$/i');
   ModuleInstallerFactory::importConfigsFromScanedDirectory('varbase_workflow', '/^.*(settings.yml)$/i');
 
+
+
   // Entity updates to clear up any mismatched entity and/or field definitions
   // And Fix changes were detected in the entity type and field definitions.
   \Drupal::classResolver()
@@ -32,5 +34,8 @@ function varbase_workflow_install() {
 
   // Add permissions.
   ModuleInstallerFactory::addPermissions('varbase_workflow');
+
+  // Grant new access unpublished permissions for the site admin user role.
+  grant_access_unpublished_permissions('site_admin');
 
 }
