@@ -15,6 +15,14 @@ function varbase_workflow_update_103001() {
     \Drupal::service('module_installer')->install(['access_unpublished'], FALSE);
   }
 
-  // Grant new access unpublished permissions for the site admin user role.
-  grant_access_unpublished_permissions('site_admin');
+  // Grant new access unpublished permissions for anonymous and all authenticated user roles.
+  grant_access_unpublished_permissions('anonymous');
+  grant_access_unpublished_permissions('authenticated');
+
+  // Grant the Site Admin user role with generate token permissions.
+  user_role_grant_permissions('site_admin', [
+    'access tokens overview',
+    'renew token',
+    'delete token',
+    ]);
 }

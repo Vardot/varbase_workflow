@@ -16,13 +16,8 @@ use Drupal\access_unpublished\AccessUnpublished;
 function grant_access_unpublished_permissions(string $user_role) {
   if ($site_admin_user_role = Role::load('site_admin')) {
 
-    // Default Access Unpublished permissions
-    $permissions = [
-      'access tokens overview',
-      'renew token',
-      'delete token',
-    ];
-
+    // Default Access Unpublished permissions.
+    $permissions = [];
     $definitions = \Drupal::service('entity_type.manager')->getDefinitions();
     foreach ($definitions as $definition) {
       if (AccessUnpublished::applicableEntityType($definition)) {
