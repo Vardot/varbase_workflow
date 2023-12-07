@@ -14,7 +14,7 @@ use Drupal\access_unpublished\AccessUnpublished;
  * Grant Access Unpublished permissions for a user role.
  */
 function grant_access_unpublished_permissions(string $user_role) {
-  if ($site_admin_user_role = Role::load('site_admin')) {
+  if ($site_admin_user_role = Role::load($user_role)) {
 
     // Default Access Unpublished permissions.
     $permissions = [];
