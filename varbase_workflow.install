@@ -8,6 +8,10 @@
 use Vardot\Entity\EntityDefinitionUpdateManager;
 use Vardot\Installer\ModuleInstallerFactory;
 
+// Include all helpers and updates.
+include_once __DIR__ . '/includes/helpers.inc';
+include_once __DIR__ . '/includes/updates.inc';
+
 /**
  * Implements hook_install().
  */
@@ -30,6 +34,3 @@ function varbase_workflow_install() {
   ModuleInstallerFactory::addPermissions('varbase_workflow');
 
 }
-
-// Load include all updates and apply them.
-\Drupal::moduleHandler()->loadInclude('varbase_workflow', 'inc', 'include/updates/all');
