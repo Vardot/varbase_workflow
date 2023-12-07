@@ -14,3 +14,6 @@ permissions:
   - 'use moderation sidebar'
   - 'schedule publishing of nodes'
   - 'view scheduled content'
+  - 'access tokens overview'
+  - 'renew token'
+  - 'delete token'
