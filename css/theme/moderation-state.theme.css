@@ -1,0 +1,20 @@
+#edit-moderation-state-0--2 {
+  padding-right: .5rem;
+}
+
+#edit-moderation-state-0--2 .form-element--type-select {
+  width: 8rem;
+}
+
+#edit-moderation-state-0--2 .form-item--moderation-state-0-current {
+  display: none;
+}
+
+#edit-moderation-state-0--2 .form-item--moderation-state-0-state label {
+  display: none;
+}
+
+[dir=rtl] #edit-moderation-state-0--2 {
+  padding-right: auto;
+  padding-left: .5rem;
+}

@@ -81,6 +81,27 @@ function varbase_workflow_form_alter(array &$form, FormStateInterface $form_stat
       $form['unpublish_state']['widget'][0]['#default_value'] = 'archived';
     }
 
+    // Move the moderation status to actions when the Gin admin theme.
+    $active_theme = \Drupal::theme()->getActiveTheme();
+    $base_themes = (array) $active_theme->getBaseThemeExtensions();
+    if ($active_theme->getName() === 'gin' || array_key_exists('gin', $base_themes)) {
+
+      // Remove the group to the side for moderation status.
+      unset($form['moderation_state']['#group']);
+      $form['moderation_state']['#weight'] = 50;
+
+      // Move moderation status to actions and remove from old location.
+      $form['actions']['moderation_state'] = $form['moderation_state'];
+      unset($form['moderation_state']);
+
+      // Change the title and order of the submit button.
+      $form['actions']['submit']['#value'] = t('Save as');
+      $form['actions']['submit']['#weight'] = 40;
+
+      // Add the Varbase Workflow moderation status theme styling library to fit in with actions.
+      $form['#attached']['library'][] = 'varbase_workflow/moderation-state';
+    }
+
   }
 
   return $form;

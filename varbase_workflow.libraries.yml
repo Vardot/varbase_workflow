@@ -1,0 +1,4 @@
+moderation-state:
+  css:
+    theme:
+      css/theme/moderation-state.theme.css: { }
