@@ -20,38 +20,18 @@
     "drupal": {
       "type": "composer",
       "url": "https://packages.drupal.org/8"
-      },
-    "assets": {
-      "type": "composer",
-      "url": "https://asset-packagist.org"
     }
   },
   "require": {
-    "composer/installers": "~2",
-    "oomphinc/composer-installers-extender": "~2",
-    "cweagans/composer-patches": "~1",
     "drupal/core": "~10",
+    "vardot/varbase-patches": "~9.1.0",
     "vardot/entity-definition-update-manager": "~1",
     "vardot/module-installer-factory": "~1",
     "drupal/moderation_sidebar": "~1",
     "drupal/content_planner": "~1",
     "drupal/scheduler": "~2",
     "drupal/scheduler_content_moderation_integration": "~2",
-    "drupal/content_moderation_notifications": "3.6.0",
+    "drupal/content_moderation_notifications": "~3",
     "drupal/admin_audit_trail": "~1"
-  },
-  "extra": {
-    "installer-types": [
-      "bower-asset",
-      "npm-asset"
-    ],
-    "enable-patching": true,
-    "composer-exit-on-patch-failure": true,
-    "patches": {
-      "drupal/content_moderation_notifications": {
-        "Issue #3347958: Fix Entity queries must explicitly set whether the query should be access checked or not in Content Moderation Notifications":
-        "https://www.drupal.org/files/issues/2023-03-14/3347958-2.patch"
-      }
-    }
   }
 }
