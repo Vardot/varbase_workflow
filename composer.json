@@ -24,7 +24,7 @@
   },
   "require": {
     "drupal/core": "~10",
-    "vardot/varbase-patches": "~10.0.0",
+    "vardot/varbase-patches": "~10",
     "vardot/entity-definition-update-manager": "~1",
     "vardot/module-installer-factory": "~1",
     "drupal/moderation_sidebar": "~1",
