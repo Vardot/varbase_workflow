@@ -88,6 +88,9 @@ function varbase_workflow_form_alter(array &$form, FormStateInterface $form_stat
 
       // Remove the group to the side for moderation status.
       unset($form['moderation_state']['#group']);
+
+      // Move moderation state dropdown to be a gin action item.
+      $form['moderation_state']['#gin_action_item'] = TRUE;
       $form['moderation_state']['#weight'] = 50;
 
       // Move moderation status to actions and remove from old location.
@@ -97,6 +100,16 @@ function varbase_workflow_form_alter(array &$form, FormStateInterface $form_stat
       // Change the title and order of the submit button.
       $form['actions']['submit']['#value'] = t('Save as');
       $form['actions']['submit']['#weight'] = 40;
+
+      // Move unlock to be a gin action item.
+      if (isset($form['actions']['unlock'])) {
+        $form['actions']['unlock']['#gin_action_item'] = TRUE;
+      }
+
+      // Move delete to be a gin action item.
+      if (isset($form['actions']['delete'])) {
+        $form['actions']['delete']['#gin_action_item'] = TRUE;
+      }
 
       // Add the Varbase Workflow moderation status theme styling library to fit in with actions.
       $form['#attached']['library'][] = 'varbase_workflow/moderation-state';

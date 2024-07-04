@@ -1,6 +1,4 @@
-#edit-moderation-state-0--2 {
-  padding-right: 0.5rem;
-
+#edit-moderation-state-0 {
   .form-element--type-select {
     width: 8rem;
   }
@@ -16,9 +14,3 @@
   }
 }
 
-[dir="rtl"] {
-  #edit-moderation-state-0--2 {
-    padding-right: auto;
-    padding-left: 0.5rem;
-  }
-}
