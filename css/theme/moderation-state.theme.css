@@ -1,11 +1,23 @@
-#edit-moderation-state-0 .form-element--type-select {
+.gin-sticky-form-actions #edit-moderation-state-0 .form-element--type-select {
   width: 8rem;
 }
 
-#edit-moderation-state-0 .form-item--moderation-state-0-current {
+.gin-sticky-form-actions #edit-moderation-state-0 .form-item--moderation-state-0-current {
   display: none;
 }
 
-#edit-moderation-state-0 .form-item--moderation-state-0-state label {
+.gin-sticky-form-actions #edit-moderation-state-0 .form-item--moderation-state-0-state label {
   display: none;
+}
+
+.gin-sticky-form-actions #edit-moderation-state-wrapper {
+  order: -6;
+}
+
+.gin-sticky-form-actions #edit-preview {
+  order: -5;
+}
+
+.gin-sticky-form-actions #edit-submit {
+  order: -4;
 }
