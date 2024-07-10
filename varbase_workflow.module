@@ -95,16 +95,6 @@ function varbase_workflow_form_alter(array &$form, FormStateInterface $form_stat
       // Change the title of the submit button.
       $form['actions']['submit']['#value'] = t('Save as');
 
-      // Move unlock to be a gin action item.
-      if (isset($form['actions']['unlock'])) {
-        $form['actions']['unlock']['#gin_action_item'] = TRUE;
-      }
-
-      // Move delete to be a gin action item.
-      if (isset($form['actions']['delete'])) {
-        $form['actions']['delete']['#gin_action_item'] = TRUE;
-      }
-
       // Add the Varbase Workflow moderation status theme styling library to fit in with actions.
       $form['#attached']['library'][] = 'varbase_workflow/moderation-state';
     }
