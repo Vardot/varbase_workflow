@@ -30,7 +30,7 @@
     "drupal/moderation_sidebar": "~1",
     "drupal/content_planner": "~1",
     "drupal/scheduler": "~2",
-    "drupal/scheduler_content_moderation_integration": "~2",
+    "drupal/scheduler_content_moderation_integration": "~3",
     "drupal/content_moderation_notifications": "~3",
     "drupal/admin_audit_trail": "~1"
   }
