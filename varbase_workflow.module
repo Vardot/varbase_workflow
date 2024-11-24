@@ -86,11 +86,8 @@ function varbase_workflow_form_alter(array &$form, FormStateInterface $form_stat
     $base_themes = (array) $active_theme->getBaseThemeExtensions();
     if ($active_theme->getName() === 'gin' || array_key_exists('gin', $base_themes)) {
 
-      // Set the group for moderation status to be in Gin Actions sticky header.
-      $form['moderation_state']['#group'] = 'gin_actions';
-
-      // Move moderation state dropdown to be a gin action item.
-      $form['moderation_state']['#gin_action_item'] = TRUE;
+      // Set the group for moderation status to be in Gin Actions sticky status.
+      $form['moderation_state']['#group'] = 'status';
 
       // Change the title of the submit button.
       $form['actions']['submit']['#value'] = t('Save as');

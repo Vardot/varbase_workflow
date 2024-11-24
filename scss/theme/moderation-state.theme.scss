@@ -1,4 +1,4 @@
-.gin-sticky-form-actions {
+#edit-gin-sticky-actions {
 
   #edit-moderation-state-0 {
     .form-element--type-select {
@@ -15,16 +15,12 @@
       }
     }
   }
-
-  #edit-moderation-state-wrapper {
-    order: -6;
-  }
   
-  #edit-preview {
+  [data-gin-sticky-form-selector="edit-preview"] {
     order: -5;
   }
   
-  #edit-submit {
+  [data-gin-sticky-form-selector="edit-submit"] {
     order: -4;
   }
 }
