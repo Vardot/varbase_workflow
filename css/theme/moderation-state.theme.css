@@ -14,11 +14,11 @@
 }
 
 #edit-gin-sticky-actions #gin-sticky-edit-submit {
-  order: -5;
+  order: -4;
 }
 
 #edit-gin-sticky-actions #gin-sticky-edit-preview {
-  order: -4;
+  order: -5;
 }
 
 #edit-gin-sidebar #edit-moderation-state-wrapper {
