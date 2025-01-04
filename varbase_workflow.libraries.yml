@@ -2,3 +2,5 @@ moderation-state:
   css:
     theme:
       css/theme/moderation-state.theme.css: { }
+  js:
+    js/moderation-state.js: { }
