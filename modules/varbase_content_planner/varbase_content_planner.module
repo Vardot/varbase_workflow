@@ -103,3 +103,12 @@ function varbase_content_planner_preprocess_varbase_item_list(array &$variables)
     ];
   }
 }
+
+/**
+ * Implements hook_toolbar().
+ */
+function varbase_content_planner_toolbar_alter(&$items) {
+  if (isset($items['content_planner'])) {
+    unset($items['content_planner']);
+  }
+}
