@@ -23,10 +23,8 @@
     }
   },
   "require": {
-    "drupal/core": "~10.4.0 || ~11.1.0",
+    "drupal/core": "~10.5.0 || ~11.2.0",
     "vardot/varbase-patches": "~10",
-    "vardot/entity-definition-update-manager": "~1",
-    "vardot/module-installer-factory": "~1",
     "drupal/moderation_sidebar": "~1",
     "drupal/content_planner": "~1",
     "drupal/scheduler": "~2",
