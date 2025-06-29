@@ -4,7 +4,6 @@
   "type": "drupal-module",
   "homepage": "https://www.drupal.org/project/varbase_workflow",
   "license": "GPL-2.0-or-later",
-  "minimum-stability": "dev",
   "authors": [
     {
       "name": "Vardot",
@@ -15,12 +14,6 @@
   "support": {
     "issues": "https://www.drupal.org/project/issues/varbase_workflow",
     "source": "http://cgit.drupalcode.org/varbase_workflow"
-  },
-  "repositories": {
-    "drupal": {
-      "type": "composer",
-      "url": "https://packages.drupal.org/8"
-    }
   },
   "require": {
     "drupal/core": "~11.2.0",
