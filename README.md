@@ -19,9 +19,6 @@ Out of the box, it offers two workflows for content moderation:
 
 * Two content moderation workflows. Simple workflow, and Editorial workflow.
     Offered using core's Content Moderation module.
-* Moderation sidebar offering site admins and editors simple and easy
-  moderation transitions using two clicks only.
-    Offered using Moderation Sidebar module.
 * A submodule that wraps around the Content Planner module offering:
 * - Customizable Content Planner dashboard
 * - Drag-n-drop calendar for adding, scheduling, and rescheduling content

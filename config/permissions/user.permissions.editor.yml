@@ -11,6 +11,5 @@ permissions:
   - 'use varbase_simple_workflow transition archived_published'
   - 'view any unpublished content'
   - 'view latest version'
-  - 'use moderation sidebar'
   - 'schedule publishing of nodes'
   - 'view scheduled content'
