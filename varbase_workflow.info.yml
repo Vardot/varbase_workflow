@@ -6,7 +6,6 @@ core_version_requirement: ~11.2.0
 dependencies:
   - drupal:workflows
   - drupal:content_moderation
-  - moderation_sidebar:moderation_sidebar
 install:
   - scheduler_content_moderation_integration
   - admin_audit_trail_workflows
