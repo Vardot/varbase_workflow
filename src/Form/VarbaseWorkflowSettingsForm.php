@@ -2,16 +2,16 @@
 
 namespace Drupal\varbase_workflow\Form;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\access_unpublished\AccessUnpublished;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Config\TypedConfigManagerInterface;
+use Drupal\Core\DependencyInjection\ClassResolverInterface;
+use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
-use Drupal\Core\DependencyInjection\ClassResolverInterface;
-use Drupal\user\Entity\Role;
-use Drupal\access_unpublished\AccessUnpublished;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Varbase Workflow Settings Form Class.
@@ -47,10 +47,12 @@ class VarbaseWorkflowSettingsForm extends ConfigFormBase {
   protected $classResolver;
 
   /**
-   * Constructs a new Varbase Workflow Block.
+   * Constructs a new Varbase Workflow Settings Form.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The factory for configuration objects.
+   * @param \Drupal\Core\Config\TypedConfigManagerInterface $typed_config_manager
+   *   The typed config manager.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
@@ -58,10 +60,10 @@ class VarbaseWorkflowSettingsForm extends ConfigFormBase {
    * @param \Drupal\Core\Entity\EntityTypeBundleInfoInterface $bundle_info
    *   The entity type bundle service.
    * @param \Drupal\Core\DependencyInjection\ClassResolverInterface $class_resolver
-   *   (optional) The class resolver.
+   *   The class resolver.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, ModuleHandlerInterface $module_handler, EntityTypeManagerInterface $entity_type_manager, EntityTypeBundleInfoInterface $bundle_info, ClassResolverInterface $class_resolver) {
-    parent::__construct($config_factory);
+  public function __construct(ConfigFactoryInterface $config_factory, TypedConfigManagerInterface $typed_config_manager, ModuleHandlerInterface $module_handler, EntityTypeManagerInterface $entity_type_manager, EntityTypeBundleInfoInterface $bundle_info, ClassResolverInterface $class_resolver) {
+    parent::__construct($config_factory, $typed_config_manager);
     $this->moduleHandler = $module_handler;
     $this->entityTypeManager = $entity_type_manager;
     $this->bundleInfo = $bundle_info;
@@ -74,6 +76,7 @@ class VarbaseWorkflowSettingsForm extends ConfigFormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('config.factory'),
+      $container->get('config.typed'),
       $container->get('module_handler'),
       $container->get('entity_type.manager'),
       $container->get('entity_type.bundle.info'),
@@ -111,7 +114,7 @@ class VarbaseWorkflowSettingsForm extends ConfigFormBase {
         $form['limited_applicable_entity_types'][$definition->id()] = [
           '#type' => 'checkbox',
           '#title' => $definition->getLabel(),
-          '#default_value' => !empty($vw_settings[$definition->id()]) ?? [],
+          '#default_value' => !empty($vw_settings[$definition->id()]),
         ];
       }
     }
@@ -141,18 +144,19 @@ class VarbaseWorkflowSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * Auto grant limited applicable entity types.
+   * Grant permissions for the entity types we care about.
+   *
+   * Goes through the configured entity types and gives anonymous and
+   * authenticated users the "access unpublished" permission for those types.
    */
   public function autoGrantLimitedApplicableEntityTypes() {
     $vw_settings = $this->config('varbase_workflow.settings')->get('limited_applicable_entity_types');
     $definitions = $this->entityTypeManager->getDefinitions();
 
     foreach ($definitions as $definition) {
-      if (!empty($vw_settings[$definition->id()])
-        && isset($vw_settings[$definition->id()])
-        && $vw_settings[$definition->id()]) {
-
-        // Grant new access unpublished permissions for anonymous and all authenticated user roles
+      if (!empty($vw_settings[$definition->id()])) {
+        // Give both anonymous and authenticated users access to unpublished
+        // content for this entity type.
         $this->grantAccessUnpublishedPermissions('anonymous', $definition->id());
         $this->grantAccessUnpublishedPermissions('authenticated', $definition->id());
       }
@@ -160,39 +164,44 @@ class VarbaseWorkflowSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * Grant Access Unpublished permissions for a user role.
+   * Give a user role access to unpublished content.
+   *
+   * @param string $userRole
+   *   The role ID (like 'anonymous' or 'authenticated').
+   * @param string $definitionId
+   *   The entity type to grant permissions for. Leave empty for all types.
    */
   public function grantAccessUnpublishedPermissions(string $userRole, string $definitionId = '') {
-    if ($role = Role::load($userRole)) {
+    $role = $this->entityTypeManager->getStorage('user_role')->load($userRole);
+    if (!$role) {
+      return;
+    }
 
-      // Default Access Unpublished permissions.
-      $permissions = [];
-      $definitions = \Drupal::service('entity_type.manager')->getDefinitions();
-      foreach ($definitions as $definition) {
-        if (($definitionId == '' || $definition->id() == $definitionId)
-          && AccessUnpublished::applicableEntityType($definition)) {
+    // Default Access Unpublished permissions.
+    $permissions = [];
+    $definitions = $this->entityTypeManager->getDefinitions();
+    foreach ($definitions as $definition) {
+      if (($definitionId === '' || $definition->id() === $definitionId)
+        && AccessUnpublished::applicableEntityType($definition)) {
 
-          $permission = 'access_unpublished ' . $definition->id();
-          if ($definition->get('bundle_entity_type')) {
-            $bundles = \Drupal::service('entity_type.manager')->getStorage($definition->getBundleEntityType())->loadMultiple();
-            foreach ($bundles as $bundle) {
-              $permissions[] = $permission . ' ' . $bundle->id();
-            }
+        $permission = 'access_unpublished ' . $definition->id();
+        if ($definition->get('bundle_entity_type')) {
+          $bundles = $this->entityTypeManager->getStorage($definition->getBundleEntityType())->loadMultiple();
+          foreach ($bundles as $bundle) {
+            $permissions[] = $permission . ' ' . $bundle->id();
           }
-          else {
-            $permissions[] = $permission;
-          }
-
+        }
+        else {
+          $permissions[] = $permission;
         }
       }
-
-      foreach ($permissions as $permission) {
-        $role->grantPermission($permission);
-      }
-
-      $role->trustData()->save();
-
     }
+
+    foreach ($permissions as $permission) {
+      $role->grantPermission($permission);
+    }
+
+    $role->trustData()->save();
   }
 
 }
