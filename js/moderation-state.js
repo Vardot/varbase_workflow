@@ -6,20 +6,26 @@
 (function ($, _, Drupal) {
   Drupal.behaviors.varbaseModerationStateSync = {
     attach: function (context, settings) {
+      // Look for the two dropdowns that commonly appear
       const dropdown1 = $('[id="edit-moderation-state-0-state"]', context);
       const dropdown2 = $('[id="edit-moderation-state-0-state--2"]', context);
 
+      // Only do something if both dropdowns exist
       if (dropdown1.length && dropdown2.length) {
-        // Sync dropdown2 when dropdown1 changes.
+
+        // When dropdown1 changes, update dropdown2
         dropdown1.on('change', function () {
-          dropdown2.val($(this).val()).trigger('change');
+          const selectedValue = $(this).val();
+          dropdown2.val(selectedValue).trigger('change');
         });
 
-        // Sync dropdown1 when dropdown2 changes.
+        // When dropdown2 changes, update dropdown1
         dropdown2.on('change', function () {
-          dropdown1.val($(this).val()).trigger('change');
+          const selectedValue = $(this).val();
+          dropdown1.val(selectedValue).trigger('change');
         });
       }
     }
   };
+
 })(window.jQuery, window._, window.Drupal);

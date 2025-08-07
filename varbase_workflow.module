@@ -6,8 +6,8 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
 use Drupal\Core\Link;
+use Drupal\Core\Url;
 use Vardot\Entity\EntityDefinitionUpdateManager;
 
 // Include all helpers.
@@ -17,7 +17,9 @@ include_once __DIR__ . '/includes/helpers.inc';
  * Implements hook_form_alter().
  */
 function varbase_workflow_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
-
+  // We alter a few different forms:
+  // - Node type forms: Add workflow selection dropdown
+  // - Content forms: Improve the moderation state interface.
   if ($form_id == 'node_type_add_form' || $form_id == 'node_type_edit_form') {
 
     $default_workflow_option = '_none';
@@ -93,7 +95,8 @@ function varbase_workflow_form_alter(array &$form, FormStateInterface $form_stat
       // Change the title of the submit button.
       $form['actions']['submit']['#value'] = t('Save as');
 
-      // Add the Varbase Workflow moderation status theme styling library to fit in with actions.
+      // Add the Varbase Workflow moderation status theme styling library
+      // to fit in with actions.
       $form['#attached']['library'][] = 'varbase_workflow/moderation-state';
     }
 
@@ -148,7 +151,8 @@ function _varbase_workflow_node_type_add_form(array &$form, FormStateInterface &
  */
 function varbase_workflow_entity_bundle_create($entity_type_id, $bundle) {
 
-  // Grant new access unpublished permissions for anonymous and all authenticated user roles.
+  // Grant new access unpublished permissions for anonymous and all
+  // authenticated user roles.
   varbase_workflow__grant_access_unpublished_permissions('anonymous', $entity_type_id, $bundle);
   varbase_workflow__grant_access_unpublished_permissions('authenticated', $entity_type_id, $bundle);
 }

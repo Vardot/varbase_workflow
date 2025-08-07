@@ -5,8 +5,8 @@
  * Contains varbase_content_planner.module.
  */
 
-use Drupal\Core\Template\Attribute;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Template\Attribute;
 
 /**
  * Implements hook_theme().
@@ -105,7 +105,7 @@ function varbase_content_planner_preprocess_varbase_item_list(array &$variables)
 }
 
 /**
- * Implements hook_toolbar().
+ * Implements hook_toolbar_alter().
  */
 function varbase_content_planner_toolbar_alter(&$items) {
   if (isset($items['content_planner'])) {

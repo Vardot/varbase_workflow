@@ -7,11 +7,14 @@
  * Add custom needed helper functions.
  */
 
-use Drupal\user\Entity\Role;
 use Drupal\access_unpublished\AccessUnpublished;
+use Drupal\user\Entity\Role;
 
 /**
- * Auto grant access unpublished for limited applicable entity types.
+ * Grant access unpublished permissions for entity types we care about.
+ *
+ * Reads the module config to see which entity types should get access
+ * unpublished permissions for anonymous and authenticated users.
  */
 function varbase_workflow__auto_grant_access_unpublished() {
   $vw_settings = \Drupal::service('config.factory')->get('varbase_workflow.settings')->get('limited_applicable_entity_types');
@@ -22,7 +25,8 @@ function varbase_workflow__auto_grant_access_unpublished() {
       && isset($vw_settings[$definition->id()])
       && $vw_settings[$definition->id()]) {
 
-      // Grant new access unpublished permissions for anonymous and all authenticated user roles
+      // Grant new access unpublished permissions for anonymous and all
+      // authenticated user roles.
       varbase_workflow__grant_access_unpublished_permissions('anonymous', $definition->id());
       varbase_workflow__grant_access_unpublished_permissions('authenticated', $definition->id());
     }
