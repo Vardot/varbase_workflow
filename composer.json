@@ -23,6 +23,7 @@
     "drupal/scheduler_content_moderation_integration": "~3",
     "drupal/content_moderation_notifications": "~3",
     "drupal/admin_audit_trail": "~1",
-    "drupal/access_unpublished": "~1"
+    "drupal/access_unpublished": "~1",
+    "drupal/eca": "~3" 
   }
 }
