@@ -9,4 +9,5 @@ dependencies:
 install:
   - scheduler_content_moderation_integration
   - admin_audit_trail_workflows
-  - access_unpublished  
+  - access_unpublished
+  - eca_workflow
