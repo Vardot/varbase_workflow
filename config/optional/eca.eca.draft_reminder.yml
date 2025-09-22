@@ -1,0 +1,159 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - easy_email.easy_email_type.draft_content_notification
+    - views.view.eca_admin_users
+    - views.view.eca_draft_content
+  module:
+    - easy_email
+    - eca_base
+    - eca_content
+    - eca_render
+    - eca_user
+    - eca_views
+    - modeler_api
+third_party_settings:
+  modeler_api:
+    modeler_id: bpmn_io
+    data: 'hash:a81466f8aa4028500ea0fa64fd2afee3'
+    changelog: Initialization
+    label: 'Draft Reminder'
+    documentation: 'Send a monthly email reminder for drafts older than 1 month.'
+    tags:
+      - cron
+      - email
+      - drafts
+      - reminder
+    version: 1.0.0
+id: draft_reminder
+weight: -8
+events:
+  eca_base__eca_cron_1:
+    plugin: 'eca_base:eca_cron'
+    label: 'Cron to check on outdated drafts'
+    configuration:
+      frequency: '* * * * *'
+    successors:
+      -
+        id: eca_switch_account_1g8aba2
+        condition: ''
+conditions:
+  eca_count_0ny0i7c:
+    plugin: eca_count
+    label: '> 0'
+    configuration:
+      negate: false
+      left: draft_content_count
+      right: '0'
+      operator: greaterthan
+      type: numeric
+      case: false
+  eca_count_1i4ie5y:
+    plugin: eca_count
+    label: '> 0'
+    configuration:
+      negate: false
+      left: editorial_admin_users
+      right: '0'
+      operator: greaterthan
+      type: numeric
+      case: false
+gateways:
+  Gateway_0g6eill:
+    type: 0
+    successors:
+      -
+        id: eca_render_views__views_1
+        condition: eca_count_0ny0i7c
+  Gateway_13ty9os:
+    type: 0
+    successors:
+      -
+        id: eca_list_remove_0vxl67h
+        condition: eca_count_1i4ie5y
+actions:
+  eca_views_query_021kily:
+    label: 'Outdated Draft content count'
+    plugin: eca_views_query
+    configuration:
+      token_name: draft_content_count
+      view_id: eca_draft_content
+      display_id: count
+      arguments: ''
+    successors:
+      -
+        id: Gateway_0g6eill
+        condition: ''
+  eca_switch_account_1g8aba2:
+    label: 'Switch to webmaster'
+    plugin: eca_switch_account
+    configuration:
+      user_id: '1'
+    successors:
+      -
+        id: eca_views_query_021kily
+        condition: ''
+  eca_views_query_0vvgd0o:
+    label: 'Editorial admin users'
+    plugin: eca_views_query
+    configuration:
+      token_name: editorial_admin_users
+      view_id: eca_admin_users
+      display_id: editorial_admin_users
+      arguments: ''
+    successors:
+      -
+        id: Gateway_13ty9os
+        condition: ''
+  eca_list_remove_0vxl67h:
+    label: 'Pop first editorial admin user from the list'
+    plugin: eca_list_remove
+    configuration:
+      value: ''
+      token_name: admin_user
+      method: first
+      index: ''
+      list_token: editorial_admin_users
+    successors:
+      -
+        id: eca_new_entity_1tkseau
+        condition: ''
+  eca_new_entity_1tkseau:
+    label: 'Create Draft content notification email'
+    plugin: eca_new_entity
+    configuration:
+      token_name: draft_content_notification
+      type: 'easy_email draft_content_notification'
+      langcode: ''
+      label: 'Outdated Draft Reminder: [site:name]'
+      published: false
+      owner: '1'
+    successors:
+      -
+        id: easy_email_send_0kgveor
+        condition: ''
+  easy_email_send_0kgveor:
+    label: 'Send Easy Email template about outdated drafts'
+    plugin: easy_email_send
+    configuration:
+      object: draft_content_notification
+    successors:
+      -
+        id: Gateway_13ty9os
+        condition: ''
+  eca_render_views__views_1:
+    label: 'Render the first 20 outdated Draft content as HTML table'
+    plugin: 'eca_render_views:views'
+    configuration:
+      name: ''
+      token_name: draft_content_html_table
+      weight: null
+      mode: 'set:clear'
+      view_id: eca_draft_content
+      display_id: html_table
+      arguments: ''
+    successors:
+      -
+        id: eca_views_query_0vvgd0o
+        condition: ''
