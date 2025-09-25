@@ -1,5 +1,5 @@
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - easy_email.easy_email_type.draft_content_notification
@@ -16,7 +16,7 @@ dependencies:
 third_party_settings:
   modeler_api:
     modeler_id: bpmn_io
-    data: 'hash:a81466f8aa4028500ea0fa64fd2afee3'
+    data: 'hash:ca521365d78af7d9f7f61b42f33b47de'
     changelog: Initialization
     label: 'Draft Reminder'
     documentation: 'Send a monthly email reminder for drafts older than 1 month.'
@@ -29,11 +29,11 @@ third_party_settings:
 id: draft_reminder
 weight: -8
 events:
-  eca_base__eca_cron_1:
+  eca_base__eca_cron_1_1:
     plugin: 'eca_base:eca_cron'
     label: 'Cron to check on outdated drafts'
     configuration:
-      frequency: '* * * * *'
+      frequency: '0 2 * * *'
     successors:
       -
         id: eca_switch_account_1g8aba2

@@ -1,3 +1,4 @@
+uuid: 659392ee-730b-45c4-af99-ca04e97da6bb
 langcode: en
 status: true
 dependencies: {  }
@@ -5,7 +6,7 @@ id: eca_bpmn_io_draft_reminder
 data: |
   <?xml version="1.0" encoding="UTF-8"?>
   <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
-    <bpmn2:process id="draft_reminder" name="Draft Reminder" isExecutable="true" camunda:versionTag="1.0.0">
+    <bpmn2:process id="draft_reminder" name="Draft Reminder" isExecutable="false" camunda:versionTag="1.0.0">
       <bpmn2:documentation>Send a monthly email reminder for drafts older than 1 month.</bpmn2:documentation>
       <bpmn2:extensionElements>
         <camunda:properties>
@@ -13,10 +14,10 @@ data: |
           <camunda:property name="Changelog" value="Initialization" />
         </camunda:properties>
       </bpmn2:extensionElements>
-      <bpmn2:startEvent id="eca_base__eca_cron_1" name="Cron to check on outdated drafts" camunda:modelerTemplate="org.drupal.event.eca_base:eca_cron">
+      <bpmn2:startEvent id="eca_base__eca_cron_1_1" name="Cron to check on outdated drafts" camunda:modelerTemplate="org.drupal.event.eca_base:eca_cron">
         <bpmn2:extensionElements>
           <camunda:field name="frequency">
-            <camunda:string>* * * * *</camunda:string>
+            <camunda:string>0 2 * * *</camunda:string>
           </camunda:field>
           <camunda:properties>
             <camunda:property name="pluginid" value="eca_base:eca_cron" />
@@ -58,7 +59,7 @@ data: |
         <bpmn2:incoming>Flow_00mwnhd</bpmn2:incoming>
         <bpmn2:outgoing>Flow_1onjn3c</bpmn2:outgoing>
       </bpmn2:task>
-      <bpmn2:sequenceFlow id="Flow_00mwnhd" sourceRef="eca_base__eca_cron_1" targetRef="eca_switch_account_1g8aba2" />
+      <bpmn2:sequenceFlow id="Flow_00mwnhd" sourceRef="eca_base__eca_cron_1_1" targetRef="eca_switch_account_1g8aba2" />
       <bpmn2:exclusiveGateway id="Gateway_0g6eill">
         <bpmn2:incoming>Flow_16uerp5</bpmn2:incoming>
         <bpmn2:outgoing>eca_count_0ny0i7c</bpmn2:outgoing>
@@ -241,8 +242,11 @@ data: |
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="BPMNDiagram_draft_reminder">
       <bpmndi:BPMNPlane id="BPMNPlane_draft_reminder" bpmnElement="draft_reminder">
-        <bpmndi:BPMNShape id="eca_base__eca_cron_1_di" bpmnElement="eca_base__eca_cron_1">
+        <bpmndi:BPMNShape id="eca_base__eca_cron_1_di" bpmnElement="eca_base__eca_cron_1_1">
           <dc:Bounds x="57" y="52" width="36" height="36" />
+          <bpmndi:BPMNLabel>
+            <dc:Bounds x="33" y="88" width="84" height="27" />
+          </bpmndi:BPMNLabel>
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="eca_views_query_021kily_di" bpmnElement="eca_views_query_021kily">
           <dc:Bounds x="325" y="30" width="100" height="80" />
