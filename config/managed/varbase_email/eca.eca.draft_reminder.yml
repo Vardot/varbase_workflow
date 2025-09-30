@@ -1,5 +1,5 @@
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - easy_email.easy_email_type.draft_content_notification
@@ -16,7 +16,7 @@ dependencies:
 third_party_settings:
   modeler_api:
     modeler_id: bpmn_io
-    data: 'hash:ca521365d78af7d9f7f61b42f33b47de'
+    data: 'hash:6387fc9e16959c10b61b2d3b89a14af9'
     changelog: Initialization
     label: 'Draft Reminder'
     documentation: 'Send a monthly email reminder for drafts older than 1 month.'
@@ -39,16 +39,6 @@ events:
         id: eca_switch_account_1g8aba2
         condition: ''
 conditions:
-  eca_count_0ny0i7c:
-    plugin: eca_count
-    label: '> 0'
-    configuration:
-      negate: false
-      left: draft_content_count
-      right: '0'
-      operator: greaterthan
-      type: numeric
-      case: false
   eca_count_1i4ie5y:
     plugin: eca_count
     label: '> 0'
@@ -59,13 +49,23 @@ conditions:
       operator: greaterthan
       type: numeric
       case: false
+  eca_count_0qn7kui:
+    plugin: eca_count
+    label: '> 0'
+    configuration:
+      negate: false
+      left: draft_content_count
+      right: '0'
+      operator: greaterthan
+      type: numeric
+      case: false
 gateways:
   Gateway_0g6eill:
     type: 0
     successors:
       -
-        id: eca_render_views__views_1
-        condition: eca_count_0ny0i7c
+        id: eca_render_views__views_1_2
+        condition: eca_count_0qn7kui
   Gateway_13ty9os:
     type: 0
     successors:
@@ -73,18 +73,6 @@ gateways:
         id: eca_list_remove_0vxl67h
         condition: eca_count_1i4ie5y
 actions:
-  eca_views_query_021kily:
-    label: 'Outdated Draft content count'
-    plugin: eca_views_query
-    configuration:
-      token_name: draft_content_count
-      view_id: eca_draft_content
-      display_id: count
-      arguments: ''
-    successors:
-      -
-        id: Gateway_0g6eill
-        condition: ''
   eca_switch_account_1g8aba2:
     label: 'Switch to webmaster'
     plugin: eca_switch_account
@@ -92,7 +80,7 @@ actions:
       user_id: '1'
     successors:
       -
-        id: eca_views_query_021kily
+        id: eca_views_query_0g8qxx7
         condition: ''
   eca_views_query_0vvgd0o:
     label: 'Editorial admin users'
@@ -142,8 +130,8 @@ actions:
       -
         id: Gateway_13ty9os
         condition: ''
-  eca_render_views__views_1:
-    label: 'Render the first 20 outdated Draft content as HTML table'
+  eca_render_views__views_1_2:
+    label: 'Render the first 20 outdated drafts as HTML table'
     plugin: 'eca_render_views:views'
     configuration:
       name: ''
@@ -152,6 +140,33 @@ actions:
       mode: 'set:clear'
       view_id: eca_draft_content
       display_id: html_table
+      arguments: ''
+    successors:
+      -
+        id: eca_render_views__views_1
+        condition: ''
+  eca_views_query_0g8qxx7:
+    label: 'Count number of outdated draft content'
+    plugin: eca_views_query
+    configuration:
+      token_name: draft_content_count
+      view_id: eca_draft_content
+      display_id: count
+      arguments: ''
+    successors:
+      -
+        id: Gateway_0g6eill
+        condition: ''
+  eca_render_views__views_1:
+    label: 'Render the message for Total number of outdated drafts'
+    plugin: 'eca_render_views:views'
+    configuration:
+      name: ''
+      token_name: draft_content_total_message
+      weight: null
+      mode: 'set:clear'
+      view_id: eca_draft_content
+      display_id: total_message
       arguments: ''
     successors:
       -

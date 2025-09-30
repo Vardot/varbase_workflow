@@ -1,4 +1,3 @@
-uuid: 659392ee-730b-45c4-af99-ca04e97da6bb
 langcode: en
 status: true
 dependencies: {  }
@@ -6,7 +5,7 @@ id: eca_bpmn_io_draft_reminder
 data: |
   <?xml version="1.0" encoding="UTF-8"?>
   <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
-    <bpmn2:process id="draft_reminder" name="Draft Reminder" isExecutable="false" camunda:versionTag="1.0.0">
+    <bpmn2:process id="draft_reminder" name="Draft Reminder" isExecutable="true" camunda:versionTag="1.0.0">
       <bpmn2:documentation>Send a monthly email reminder for drafts older than 1 month.</bpmn2:documentation>
       <bpmn2:extensionElements>
         <camunda:properties>
@@ -25,28 +24,7 @@ data: |
         </bpmn2:extensionElements>
         <bpmn2:outgoing>Flow_00mwnhd</bpmn2:outgoing>
       </bpmn2:startEvent>
-      <bpmn2:task id="eca_views_query_021kily" name="Outdated Draft content count" camunda:modelerTemplate="org.drupal.action.eca_views_query">
-        <bpmn2:extensionElements>
-          <camunda:field name="token_name">
-            <camunda:string>draft_content_count</camunda:string>
-          </camunda:field>
-          <camunda:field name="view_id">
-            <camunda:string>eca_draft_content</camunda:string>
-          </camunda:field>
-          <camunda:field name="display_id">
-            <camunda:string>count</camunda:string>
-          </camunda:field>
-          <camunda:field name="arguments">
-            <camunda:string></camunda:string>
-          </camunda:field>
-          <camunda:properties>
-            <camunda:property name="pluginid" value="eca_views_query" />
-          </camunda:properties>
-        </bpmn2:extensionElements>
-        <bpmn2:incoming>Flow_1onjn3c</bpmn2:incoming>
-        <bpmn2:outgoing>Flow_16uerp5</bpmn2:outgoing>
-      </bpmn2:task>
-      <bpmn2:sequenceFlow id="Flow_1onjn3c" sourceRef="eca_switch_account_1g8aba2" targetRef="eca_views_query_021kily" />
+      <bpmn2:sequenceFlow id="Flow_1onjn3c" sourceRef="eca_switch_account_1g8aba2" targetRef="eca_views_query_0g8qxx7" />
       <bpmn2:task id="eca_switch_account_1g8aba2" name="Switch to webmaster" camunda:modelerTemplate="org.drupal.action.eca_switch_account">
         <bpmn2:extensionElements>
           <camunda:field name="user_id">
@@ -61,35 +39,9 @@ data: |
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_00mwnhd" sourceRef="eca_base__eca_cron_1_1" targetRef="eca_switch_account_1g8aba2" />
       <bpmn2:exclusiveGateway id="Gateway_0g6eill">
-        <bpmn2:incoming>Flow_16uerp5</bpmn2:incoming>
-        <bpmn2:outgoing>eca_count_0ny0i7c</bpmn2:outgoing>
+        <bpmn2:incoming>Flow_0wsuqj6</bpmn2:incoming>
+        <bpmn2:outgoing>eca_count_0qn7kui</bpmn2:outgoing>
       </bpmn2:exclusiveGateway>
-      <bpmn2:sequenceFlow id="Flow_16uerp5" sourceRef="eca_views_query_021kily" targetRef="Gateway_0g6eill" />
-      <bpmn2:sequenceFlow id="eca_count_0ny0i7c" name="&#62; 0" camunda:modelerTemplate="org.drupal.condition.eca_count" sourceRef="Gateway_0g6eill" targetRef="eca_render_views__views_1">
-        <bpmn2:extensionElements>
-          <camunda:field name="left">
-            <camunda:string>draft_content_count</camunda:string>
-          </camunda:field>
-          <camunda:field name="right">
-            <camunda:string>0</camunda:string>
-          </camunda:field>
-          <camunda:field name="operator">
-            <camunda:string>greaterthan</camunda:string>
-          </camunda:field>
-          <camunda:field name="type">
-            <camunda:string>numeric</camunda:string>
-          </camunda:field>
-          <camunda:field name="case">
-            <camunda:string>no</camunda:string>
-          </camunda:field>
-          <camunda:field name="negate">
-            <camunda:string>no</camunda:string>
-          </camunda:field>
-          <camunda:properties>
-            <camunda:property name="pluginid" value="eca_count" />
-          </camunda:properties>
-        </bpmn2:extensionElements>
-      </bpmn2:sequenceFlow>
       <bpmn2:task id="eca_views_query_0vvgd0o" name="Editorial admin users" camunda:modelerTemplate="org.drupal.action.eca_views_query">
         <bpmn2:extensionElements>
           <camunda:field name="token_name">
@@ -209,7 +161,7 @@ data: |
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_0dqis4a" sourceRef="eca_new_entity_1tkseau" targetRef="easy_email_send_0kgveor" />
       <bpmn2:sequenceFlow id="Flow_1wg3msn" sourceRef="easy_email_send_0kgveor" targetRef="Gateway_13ty9os" />
-      <bpmn2:task id="eca_render_views__views_1" name="Render the first 20 outdated Draft content as HTML table" camunda:modelerTemplate="org.drupal.action.eca_render_views:views">
+      <bpmn2:task id="eca_render_views__views_1_2" name="Render the first 20 outdated drafts as HTML table" camunda:modelerTemplate="org.drupal.action.eca_render_views:views">
         <bpmn2:extensionElements>
           <camunda:field name="view_id">
             <camunda:string>eca_draft_content</camunda:string>
@@ -236,9 +188,87 @@ data: |
             <camunda:property name="pluginid" value="eca_render_views:views" />
           </camunda:properties>
         </bpmn2:extensionElements>
-        <bpmn2:incoming>eca_count_0ny0i7c</bpmn2:incoming>
+        <bpmn2:incoming>eca_count_0qn7kui</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_1wlpg0h</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0wsuqj6" sourceRef="eca_views_query_0g8qxx7" targetRef="Gateway_0g6eill" />
+      <bpmn2:task id="eca_views_query_0g8qxx7" name="Count number of outdated draft content" camunda:modelerTemplate="org.drupal.action.eca_views_query">
+        <bpmn2:extensionElements>
+          <camunda:field name="token_name">
+            <camunda:string>draft_content_count</camunda:string>
+          </camunda:field>
+          <camunda:field name="view_id">
+            <camunda:string>eca_draft_content</camunda:string>
+          </camunda:field>
+          <camunda:field name="display_id">
+            <camunda:string>count</camunda:string>
+          </camunda:field>
+          <camunda:field name="arguments">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_views_query" />
+          </camunda:properties>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_1onjn3c</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_0wsuqj6</bpmn2:outgoing>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="eca_count_0qn7kui" name="&#62; 0" camunda:modelerTemplate="org.drupal.condition.eca_count" sourceRef="Gateway_0g6eill" targetRef="eca_render_views__views_1_2">
+        <bpmn2:extensionElements>
+          <camunda:field name="left">
+            <camunda:string>draft_content_count</camunda:string>
+          </camunda:field>
+          <camunda:field name="right">
+            <camunda:string>0</camunda:string>
+          </camunda:field>
+          <camunda:field name="operator">
+            <camunda:string>greaterthan</camunda:string>
+          </camunda:field>
+          <camunda:field name="type">
+            <camunda:string>numeric</camunda:string>
+          </camunda:field>
+          <camunda:field name="case">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="negate">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_count" />
+          </camunda:properties>
+        </bpmn2:extensionElements>
+      </bpmn2:sequenceFlow>
+      <bpmn2:task id="eca_render_views__views_1" name="Render the message for Total number of outdated drafts" camunda:modelerTemplate="org.drupal.action.eca_render_views:views">
+        <bpmn2:extensionElements>
+          <camunda:field name="view_id">
+            <camunda:string>eca_draft_content</camunda:string>
+          </camunda:field>
+          <camunda:field name="display_id">
+            <camunda:string>total_message</camunda:string>
+          </camunda:field>
+          <camunda:field name="arguments">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="name">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="token_name">
+            <camunda:string>draft_content_total_message</camunda:string>
+          </camunda:field>
+          <camunda:field name="weight">
+            <camunda:string></camunda:string>
+          </camunda:field>
+          <camunda:field name="mode">
+            <camunda:string>set:clear</camunda:string>
+          </camunda:field>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_render_views:views" />
+          </camunda:properties>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_1wlpg0h</bpmn2:incoming>
         <bpmn2:outgoing>Flow_06gcvyz</bpmn2:outgoing>
       </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_1wlpg0h" sourceRef="eca_render_views__views_1_2" targetRef="eca_render_views__views_1" />
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="BPMNDiagram_draft_reminder">
       <bpmndi:BPMNPlane id="BPMNPlane_draft_reminder" bpmnElement="draft_reminder">
@@ -248,9 +278,6 @@ data: |
             <dc:Bounds x="33" y="88" width="84" height="27" />
           </bpmndi:BPMNLabel>
         </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="eca_views_query_021kily_di" bpmnElement="eca_views_query_021kily">
-          <dc:Bounds x="325" y="30" width="100" height="80" />
-        </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="eca_switch_account_1g8aba2_di" bpmnElement="eca_switch_account_1g8aba2">
           <dc:Bounds x="175" y="30" width="100" height="80" />
         </bpmndi:BPMNShape>
@@ -258,22 +285,30 @@ data: |
           <dc:Bounds x="500" y="45" width="50" height="50" />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="eca_views_query_0vvgd0o_di" bpmnElement="eca_views_query_0vvgd0o">
-          <dc:Bounds x="775" y="30" width="100" height="80" />
+          <dc:Bounds x="925" y="30" width="100" height="80" />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Gateway_13ty9os_di" bpmnElement="Gateway_13ty9os" isMarkerVisible="true">
-          <dc:Bounds x="950" y="45" width="50" height="50" />
+          <dc:Bounds x="1100" y="45" width="50" height="50" />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="eca_list_remove_0vxl67h_di" bpmnElement="eca_list_remove_0vxl67h">
-          <dc:Bounds x="1075" y="30" width="100" height="80" />
-        </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="eca_new_entity_1tkseau_di" bpmnElement="eca_new_entity_1tkseau">
           <dc:Bounds x="1225" y="30" width="100" height="80" />
         </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="easy_email_send_0kgveor_di" bpmnElement="easy_email_send_0kgveor">
+        <bpmndi:BPMNShape id="eca_new_entity_1tkseau_di" bpmnElement="eca_new_entity_1tkseau">
           <dc:Bounds x="1375" y="30" width="100" height="80" />
         </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="eca_render_views__views_1_di" bpmnElement="eca_render_views__views_1">
+        <bpmndi:BPMNShape id="easy_email_send_0kgveor_di" bpmnElement="easy_email_send_0kgveor">
+          <dc:Bounds x="1525" y="30" width="100" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="eca_render_views__views_2_di" bpmnElement="eca_render_views__views_1_2">
           <dc:Bounds x="625" y="30" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="eca_views_query_0g8qxx7_di" bpmnElement="eca_views_query_0g8qxx7">
+          <dc:Bounds x="325" y="30" width="100" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="eca_render_views__views_0etym73_1_di" bpmnElement="eca_render_views__views_1">
+          <dc:Bounds x="775" y="30" width="100" height="80" />
+          <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNEdge id="Flow_1onjn3c_di" bpmnElement="Flow_1onjn3c">
           <di:waypoint x="275" y="70" />
@@ -283,39 +318,43 @@ data: |
           <di:waypoint x="93" y="70" />
           <di:waypoint x="175" y="70" />
         </bpmndi:BPMNEdge>
-        <bpmndi:BPMNEdge id="Flow_16uerp5_di" bpmnElement="Flow_16uerp5">
-          <di:waypoint x="425" y="70" />
-          <di:waypoint x="500" y="70" />
-        </bpmndi:BPMNEdge>
-        <bpmndi:BPMNEdge id="eca_count_0ny0i7c_di" bpmnElement="eca_count_0ny0i7c">
-          <di:waypoint x="550" y="70" />
-          <di:waypoint x="625" y="70" />
-        </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_06gcvyz_di" bpmnElement="Flow_06gcvyz">
-          <di:waypoint x="725" y="70" />
-          <di:waypoint x="775" y="70" />
+          <di:waypoint x="875" y="70" />
+          <di:waypoint x="925" y="70" />
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_09e489w_di" bpmnElement="Flow_09e489w">
-          <di:waypoint x="875" y="70" />
-          <di:waypoint x="950" y="70" />
+          <di:waypoint x="1025" y="70" />
+          <di:waypoint x="1100" y="70" />
         </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="eca_count_1i4ie5y_di" bpmnElement="eca_count_1i4ie5y">
-          <di:waypoint x="1000" y="70" />
-          <di:waypoint x="1075" y="70" />
-        </bpmndi:BPMNEdge>
-        <bpmndi:BPMNEdge id="Flow_0162xu2_di" bpmnElement="Flow_0162xu2">
-          <di:waypoint x="1175" y="70" />
+          <di:waypoint x="1150" y="70" />
           <di:waypoint x="1225" y="70" />
         </bpmndi:BPMNEdge>
-        <bpmndi:BPMNEdge id="Flow_0dqis4a_di" bpmnElement="Flow_0dqis4a">
+        <bpmndi:BPMNEdge id="Flow_0162xu2_di" bpmnElement="Flow_0162xu2">
           <di:waypoint x="1325" y="70" />
           <di:waypoint x="1375" y="70" />
         </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0dqis4a_di" bpmnElement="Flow_0dqis4a">
+          <di:waypoint x="1475" y="70" />
+          <di:waypoint x="1525" y="70" />
+        </bpmndi:BPMNEdge>
         <bpmndi:BPMNEdge id="Flow_1wg3msn_di" bpmnElement="Flow_1wg3msn">
-          <di:waypoint x="1425" y="110" />
-          <di:waypoint x="1425" y="140" />
-          <di:waypoint x="975" y="140" />
-          <di:waypoint x="975" y="95" />
+          <di:waypoint x="1575" y="110" />
+          <di:waypoint x="1575" y="140" />
+          <di:waypoint x="1125" y="140" />
+          <di:waypoint x="1125" y="95" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_0wsuqj6_di" bpmnElement="Flow_0wsuqj6">
+          <di:waypoint x="425" y="70" />
+          <di:waypoint x="500" y="70" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="eca_count_0qn7kui_di" bpmnElement="eca_count_0qn7kui">
+          <di:waypoint x="550" y="70" />
+          <di:waypoint x="625" y="70" />
+        </bpmndi:BPMNEdge>
+        <bpmndi:BPMNEdge id="Flow_1wlpg0h_di" bpmnElement="Flow_1wlpg0h">
+          <di:waypoint x="725" y="70" />
+          <di:waypoint x="775" y="70" />
         </bpmndi:BPMNEdge>
       </bpmndi:BPMNPlane>
     </bpmndi:BPMNDiagram>

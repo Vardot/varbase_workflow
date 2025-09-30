@@ -7,12 +7,13 @@ dependencies:
   module:
     - content_moderation
     - node
+    - smart_trim
     - user
 id: eca_draft_content
 label: 'ECA Draft content'
 module: views
-description: ''
-tag: ''
+description: 'Provide lists, tables, and counts of unpublished draft content items, used in ECA workflows to monitor outdated drafts.'
+tag: ECA
 base_table: node_field_data
 base_field: nid
 display:
@@ -345,18 +346,18 @@ display:
         - 'config:workflow_list'
   count:
     id: count
-    display_title: 'Draft content count'
+    display_title: Count
     display_plugin: attachment
     position: 3
     display_options:
-      title: 'Draft content list'
+      title: ''
       fields:
         nid:
           id: nid
           table: node_field_data
           field: nid
           relationship: none
-          group_type: group
+          group_type: count
           admin_label: ''
           entity_type: node
           entity_field: nid
@@ -418,10 +419,9 @@ display:
           separator: ', '
           field_api_classes: false
       pager:
-        type: some
+        type: none
         options:
           offset: 0
-          items_per_page: 1
       style:
         type: default
         options:
@@ -437,9 +437,11 @@ display:
           hide_empty: false
       defaults:
         title: false
+        group_by: false
         style: false
         row: false
         fields: false
+      group_by: true
       display_description: ''
       display_extenders:
         metatag_display_extender:
@@ -448,7 +450,6 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
         - user.roles
@@ -456,11 +457,11 @@ display:
         - 'config:workflow_list'
   html_table:
     id: html_table
-    display_title: 'Draft content table'
+    display_title: Table
     display_plugin: attachment
     position: 2
     display_options:
-      title: 'Draft content table'
+      title: ''
       fields:
         title:
           id: title
@@ -508,15 +509,30 @@ display:
           element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
-          element_default_classes: true
+          element_default_classes: false
           empty: ''
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
+          type: smart_trim
           settings:
-            link_to_entity: true
+            trim_length: 3
+            trim_type: words
+            trim_suffix: ...
+            wrap_output: false
+            wrap_class: trimmed
+            more:
+              display_link: false
+              target_blank: false
+              link_trim_only: false
+              class: more-link
+              text: More
+              aria_label: 'Read more about [node:title]'
+            trim_options:
+              text: true
+              trim_zero: true
+              replace_tokens: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -579,21 +595,11 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: timestamp
+          type: timestamp_ago
           settings:
-            date_format: medium
-            custom_date_format: ''
-            timezone: ''
-            tooltip:
-              date_format: long
-              custom_date_format: ''
-            time_diff:
-              enabled: false
-              future_format: '@interval hence'
-              past_format: '@interval ago'
-              granularity: 2
-              refresh: 60
-              description: ''
+            future_format: '@interval hence'
+            past_format: '@interval ago'
+            granularity: 1
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -661,7 +667,7 @@ display:
         type: some
         options:
           offset: 0
-          items_per_page: 20
+          items_per_page: 10
       style:
         type: table
         options:
@@ -706,7 +712,9 @@ display:
         style: false
         row: false
         fields: false
+        footer: false
       display_description: ''
+      footer: {  }
       display_extenders:
         metatag_display_extender:
           metatags: {  }
@@ -722,11 +730,11 @@ display:
         - 'config:workflow_list'
   list:
     id: list
-    display_title: 'Draft content list'
+    display_title: List
     display_plugin: attachment
     position: 1
     display_options:
-      title: 'Draft content list'
+      title: ''
       fields:
         nid:
           id: nid
@@ -826,6 +834,112 @@ display:
       max-age: -1
       contexts:
         - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+        - user.roles
+      tags:
+        - 'config:workflow_list'
+  total_message:
+    id: total_message
+    display_title: 'Total message'
+    display_plugin: attachment
+    position: 2
+    display_options:
+      title: ''
+      fields:
+        nothing:
+          id: nothing
+          table: views
+          field: nothing
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: custom
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: true
+          empty_zero: false
+          hide_alter_empty: false
+      pager:
+        type: none
+        options:
+          offset: 0
+      style:
+        type: default
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: false
+      row:
+        type: fields
+        options:
+          default_field_elements: true
+          inline: {  }
+          separator: ''
+          hide_empty: false
+      defaults:
+        title: false
+        group_by: false
+        style: false
+        row: false
+        fields: false
+        footer: false
+      group_by: true
+      display_description: ''
+      footer:
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: result
+          empty: false
+          content: 'Total number of outdated draft content: @total. <a href="/admin/content">See the full list</a>'
+      display_extenders:
+        metatag_display_extender:
+          metatags: {  }
+          tokenize: false
+    cache_metadata:
+      max-age: -1
+      contexts:
         - 'languages:language_interface'
         - 'user.node_grants:view'
         - user.roles
