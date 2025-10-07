@@ -36,4 +36,13 @@ function varbase_workflow_install() {
   // Auto grant access unpublished for limited applicable entity types.
   varbase_workflow__auto_grant_access_unpublished();
 
+  // Rebuild the state of subscribed events for ECA.
+  // This is equivalent to running: drush eca:subscriber:rebuild
+  if (\Drupal::moduleHandler()->moduleExists('eca')) {
+    $entity_type_manager = \Drupal::service('entity_type.manager');
+    /** @var \Drupal\eca\Entity\EcaStorage $storage */
+    $storage = $entity_type_manager->getStorage('eca');
+    $storage->rebuildSubscribedEvents();
+  }
+
 }
