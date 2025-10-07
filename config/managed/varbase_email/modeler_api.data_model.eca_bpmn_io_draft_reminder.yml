@@ -24,20 +24,8 @@ data: |
         </bpmn2:extensionElements>
         <bpmn2:outgoing>Flow_00mwnhd</bpmn2:outgoing>
       </bpmn2:startEvent>
-      <bpmn2:sequenceFlow id="Flow_1onjn3c" sourceRef="eca_switch_account_1g8aba2" targetRef="eca_views_query_0g8qxx7" />
-      <bpmn2:task id="eca_switch_account_1g8aba2" name="Switch to webmaster" camunda:modelerTemplate="org.drupal.action.eca_switch_account">
-        <bpmn2:extensionElements>
-          <camunda:field name="user_id">
-            <camunda:string>1</camunda:string>
-          </camunda:field>
-          <camunda:properties>
-            <camunda:property name="pluginid" value="eca_switch_account" />
-          </camunda:properties>
-        </bpmn2:extensionElements>
-        <bpmn2:incoming>Flow_00mwnhd</bpmn2:incoming>
-        <bpmn2:outgoing>Flow_1onjn3c</bpmn2:outgoing>
-      </bpmn2:task>
-      <bpmn2:sequenceFlow id="Flow_00mwnhd" sourceRef="eca_base__eca_cron_1_1" targetRef="eca_switch_account_1g8aba2" />
+      <bpmn2:sequenceFlow id="Flow_1onjn3c" sourceRef="eca_switch_service_account_1daqnwy" targetRef="eca_views_query_0g8qxx7" />
+      <bpmn2:sequenceFlow id="Flow_00mwnhd" sourceRef="eca_base__eca_cron_1_1" targetRef="eca_switch_service_account_1daqnwy" />
       <bpmn2:exclusiveGateway id="Gateway_0g6eill">
         <bpmn2:incoming>Flow_0wsuqj6</bpmn2:incoming>
         <bpmn2:outgoing>eca_count_0qn7kui</bpmn2:outgoing>
@@ -269,17 +257,23 @@ data: |
         <bpmn2:outgoing>Flow_06gcvyz</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:sequenceFlow id="Flow_1wlpg0h" sourceRef="eca_render_views__views_1_2" targetRef="eca_render_views__views_1" />
+      <bpmn2:task id="eca_switch_service_account_1daqnwy" name="User: switch to service user" camunda:modelerTemplate="org.drupal.action.eca_switch_service_account">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_switch_service_account" />
+          </camunda:properties>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_00mwnhd</bpmn2:incoming>
+        <bpmn2:outgoing>Flow_1onjn3c</bpmn2:outgoing>
+      </bpmn2:task>
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="BPMNDiagram_draft_reminder">
       <bpmndi:BPMNPlane id="BPMNPlane_draft_reminder" bpmnElement="draft_reminder">
-        <bpmndi:BPMNShape id="eca_base__eca_cron_1_di" bpmnElement="eca_base__eca_cron_1_1">
+        <bpmndi:BPMNShape id="eca_base__eca_cron_1_1_di" bpmnElement="eca_base__eca_cron_1_1">
           <dc:Bounds x="57" y="52" width="36" height="36" />
           <bpmndi:BPMNLabel>
             <dc:Bounds x="33" y="88" width="84" height="27" />
           </bpmndi:BPMNLabel>
-        </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="eca_switch_account_1g8aba2_di" bpmnElement="eca_switch_account_1g8aba2">
-          <dc:Bounds x="175" y="30" width="100" height="80" />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Gateway_0g6eill_di" bpmnElement="Gateway_0g6eill" isMarkerVisible="true">
           <dc:Bounds x="500" y="45" width="50" height="50" />
@@ -299,16 +293,17 @@ data: |
         <bpmndi:BPMNShape id="easy_email_send_0kgveor_di" bpmnElement="easy_email_send_0kgveor">
           <dc:Bounds x="1525" y="30" width="100" height="80" />
         </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="eca_render_views__views_2_di" bpmnElement="eca_render_views__views_1_2">
+        <bpmndi:BPMNShape id="eca_render_views__views_1_2_di" bpmnElement="eca_render_views__views_1_2">
           <dc:Bounds x="625" y="30" width="100" height="80" />
-          <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="eca_views_query_0g8qxx7_di" bpmnElement="eca_views_query_0g8qxx7">
           <dc:Bounds x="325" y="30" width="100" height="80" />
         </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="eca_render_views__views_0etym73_1_di" bpmnElement="eca_render_views__views_1">
+        <bpmndi:BPMNShape id="eca_render_views__views_1_di" bpmnElement="eca_render_views__views_1">
           <dc:Bounds x="775" y="30" width="100" height="80" />
-          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="eca_switch_service_account_1daqnwy_di" bpmnElement="eca_switch_service_account_1daqnwy">
+          <dc:Bounds x="175" y="30" width="100" height="80" />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNEdge id="Flow_1onjn3c_di" bpmnElement="Flow_1onjn3c">
           <di:waypoint x="275" y="70" />

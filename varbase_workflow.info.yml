@@ -11,3 +11,4 @@ install:
   - admin_audit_trail_workflows
   - access_unpublished
   - eca_workflow
+  - smart_trim

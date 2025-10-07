@@ -16,7 +16,7 @@ dependencies:
 third_party_settings:
   modeler_api:
     modeler_id: bpmn_io
-    data: 'hash:6387fc9e16959c10b61b2d3b89a14af9'
+    data: 'hash:4315e19ab3cca506e425a90f2694c9ed'
     changelog: Initialization
     label: 'Draft Reminder'
     documentation: 'Send a monthly email reminder for drafts older than 1 month.'
@@ -36,7 +36,7 @@ events:
       frequency: '0 2 * * *'
     successors:
       -
-        id: eca_switch_account_1g8aba2
+        id: eca_switch_service_account_1daqnwy
         condition: ''
 conditions:
   eca_count_1i4ie5y:
@@ -73,15 +73,6 @@ gateways:
         id: eca_list_remove_0vxl67h
         condition: eca_count_1i4ie5y
 actions:
-  eca_switch_account_1g8aba2:
-    label: 'Switch to webmaster'
-    plugin: eca_switch_account
-    configuration:
-      user_id: '1'
-    successors:
-      -
-        id: eca_views_query_0g8qxx7
-        condition: ''
   eca_views_query_0vvgd0o:
     label: 'Editorial admin users'
     plugin: eca_views_query
@@ -171,4 +162,12 @@ actions:
     successors:
       -
         id: eca_views_query_0vvgd0o
+        condition: ''
+  eca_switch_service_account_1daqnwy:
+    label: 'User: switch to service user'
+    plugin: eca_switch_service_account
+    configuration: {  }
+    successors:
+      -
+        id: eca_views_query_0g8qxx7
         condition: ''
