@@ -168,6 +168,7 @@ function varbase_workflow_modules_installed($modules, $is_syncing) {
     // -------------------------------------------------
     // Managed configs after enabling the Varbase Email module.
     $managed_configs = [
+      'views.view.eca_draft_content',
       'modeler_api.data_model.eca_bpmn_io_draft_reminder',
       'eca.eca.draft_reminder',
     ];
