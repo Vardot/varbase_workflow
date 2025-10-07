@@ -156,24 +156,3 @@ function varbase_workflow_entity_bundle_create($entity_type_id, $bundle) {
   varbase_workflow__grant_access_unpublished_permissions('anonymous', $entity_type_id, $bundle);
   varbase_workflow__grant_access_unpublished_permissions('authenticated', $entity_type_id, $bundle);
 }
-
-/**
- * Implements hook_modules_installed().
- */
-function varbase_workflow_modules_installed($modules, $is_syncing) {
-
-  if (in_array('varbase_email', $modules)) {
-    // When the Varbase Email module is enabled, which not enabled by default.
-    // which could be enabled after Varbase Core in number of case.
-    // -------------------------------------------------
-    // Managed configs after enabling the Varbase Email module.
-    $managed_configs = [
-      'views.view.eca_draft_content',
-      'modeler_api.data_model.eca_bpmn_io_draft_reminder',
-      'eca.eca.draft_reminder',
-    ];
-    ModuleInstallerFactory::importConfigsFromList('varbase_workflow', $managed_configs, 'config/managed/varbase_email');
-
-  }
-
-}
