@@ -16,7 +16,7 @@ dependencies:
 third_party_settings:
   modeler_api:
     modeler_id: bpmn_io
-    data: 'hash:efdb7835681d0abb074ab4c147fc8bd8'
+    data: 'hash:54b757641aa94f2d4c75ee7c2fe85f08'
     changelog: Initialization
     label: 'Draft Reminder'
     documentation: 'Send a monthly email reminder for drafts older than 1 month.'
@@ -91,8 +91,6 @@ third_party_settings:
       TextAnnotation_1d9d9d9:
         fill: '#ffe0b2'
         stroke: '#6b3c00'
-_core:
-  default_config_hash: oq_UFk7B2RLu60VuIn9sWCbtRBtOFvpiOEiSlz2PeWA
 id: draft_reminder
 weight: -8
 events:
@@ -231,7 +229,7 @@ actions:
         id: eca_views_query_0vvgd0o
         condition: ''
   eca_switch_service_account_1daqnwy:
-    label: 'User: switch to service user'
+    label: 'Switch to service user'
     plugin: eca_switch_service_account
     configuration: {  }
     successors:
