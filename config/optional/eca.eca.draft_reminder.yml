@@ -1,5 +1,5 @@
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - easy_email.easy_email_type.draft_content_notification
@@ -16,7 +16,7 @@ dependencies:
 third_party_settings:
   modeler_api:
     modeler_id: bpmn_io
-    data: 'hash:4315e19ab3cca506e425a90f2694c9ed'
+    data: 'hash:efdb7835681d0abb074ab4c147fc8bd8'
     changelog: Initialization
     label: 'Draft Reminder'
     documentation: 'Send a monthly email reminder for drafts older than 1 month.'
@@ -26,6 +26,73 @@ third_party_settings:
       - drafts
       - reminder
     version: 1.0.0
+    annotations:
+      TextAnnotation_1d1d1d1:
+        text: 'Scheduled cron job that runs daily at 2:00 AM to check for outdated draft content.'
+        assigned_to:
+          Association_1qmu4c6: eca_base__eca_cron_1_1
+      TextAnnotation_1d2d2d2:
+        text: 'We require the service account to create email entities to be sent.'
+        assigned_to:
+          Association_0jdh4vl: eca_switch_service_account_1daqnwy
+      TextAnnotation_1d3d3d3:
+        text: 'Query the count of draft content that has been in draft status for 30 days or more.'
+        assigned_to:
+          Association_00clino: eca_views_query_0g8qxx7
+      TextAnnotation_1d4d4d4:
+        text: 'Render the first 20 outdated drafts as an HTML table to be included in the email notification.'
+        assigned_to:
+          Association_0e5cz6n: eca_render_views__views_1_2
+      TextAnnotation_1d5d5d5:
+        text: 'Render the total count message showing how many drafts are outdated.'
+        assigned_to:
+          Association_03ko6mt: eca_render_views__views_1
+      TextAnnotation_1d6d6d6:
+        text: 'Query the list of editorial administrator users who will receive the draft reminder notification.'
+        assigned_to:
+          Association_124cu9u: eca_views_query_0vvgd0o
+      TextAnnotation_1d7d7d7:
+        text: 'Pop the first editorial administrator user from the list to send them the notification email.'
+        assigned_to:
+          Association_111yoht: eca_list_remove_0vxl67h
+      TextAnnotation_1d8d8d8:
+        text: 'Create the draft content notification email entity with the rendered data.'
+        assigned_to:
+          Association_1han3d4: eca_new_entity_1tkseau
+      TextAnnotation_1d9d9d9:
+        text: 'Queue the draft reminder notification email to be sent.'
+        assigned_to:
+          Association_0myft99: easy_email_send_0kgveor
+    colors:
+      TextAnnotation_1d1d1d1:
+        fill: '#ffe0b2'
+        stroke: '#6b3c00'
+      TextAnnotation_1d2d2d2:
+        fill: '#ffe0b2'
+        stroke: '#6b3c00'
+      TextAnnotation_1d3d3d3:
+        fill: '#ffe0b2'
+        stroke: '#6b3c00'
+      TextAnnotation_1d4d4d4:
+        fill: '#ffe0b2'
+        stroke: '#6b3c00'
+      TextAnnotation_1d5d5d5:
+        fill: '#ffe0b2'
+        stroke: '#6b3c00'
+      TextAnnotation_1d6d6d6:
+        fill: '#ffe0b2'
+        stroke: '#6b3c00'
+      TextAnnotation_1d7d7d7:
+        fill: '#ffe0b2'
+        stroke: '#6b3c00'
+      TextAnnotation_1d8d8d8:
+        fill: '#ffe0b2'
+        stroke: '#6b3c00'
+      TextAnnotation_1d9d9d9:
+        fill: '#ffe0b2'
+        stroke: '#6b3c00'
+_core:
+  default_config_hash: oq_UFk7B2RLu60VuIn9sWCbtRBtOFvpiOEiSlz2PeWA
 id: draft_reminder
 weight: -8
 events:
@@ -39,22 +106,22 @@ events:
         id: eca_switch_service_account_1daqnwy
         condition: ''
 conditions:
-  eca_count_1i4ie5y:
-    plugin: eca_count
-    label: '> 0'
-    configuration:
-      negate: false
-      left: editorial_admin_users
-      right: '0'
-      operator: greaterthan
-      type: numeric
-      case: false
   eca_count_0qn7kui:
     plugin: eca_count
     label: '> 0'
     configuration:
       negate: false
       left: draft_content_count
+      right: '0'
+      operator: greaterthan
+      type: numeric
+      case: false
+  eca_count_1i4ie5y:
+    plugin: eca_count
+    label: '> 0'
+    configuration:
+      negate: false
+      left: editorial_admin_users
       right: '0'
       operator: greaterthan
       type: numeric
