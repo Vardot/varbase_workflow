@@ -92,7 +92,7 @@ third_party_settings:
         fill: '#ffe0b2'
         stroke: '#6b3c00'
 id: draft_reminder
-weight: -8
+weight: -6
 events:
   eca_base__eca_cron_1_1:
     plugin: 'eca_base:eca_cron'
