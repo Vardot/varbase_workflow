@@ -1,0 +1,42 @@
+{
+  "version": "0.2",
+  "language": "en-US",
+  "allowCompoundWords": false,
+  "globRoot": ".",
+  "ignorePaths": [
+    "node_modules/**",
+    "vendor/**",
+    "*.min.js",
+    "*.min.css",
+    "composer.lock",
+    "package-lock.json",
+    "yarn.lock",
+    "**/.*.json",
+    ".*ignore"
+  ],
+  "words": [
+    "varbase",
+    "Varbase",
+    "Vardot",
+    "vardot",
+    "phpcs",
+    "phpcbf",
+    "drupal",
+    "Drupal",
+    "jsonapi",
+    "langcode",
+    "metatag",
+    "workflow",
+    "moderation",
+    "scheduler",
+    "planner",
+    "isset",
+    "sprintf",
+    "Symfony",
+    "endfor",
+    "loadjs",
+    "unpublishing",
+    "preg",
+    "Scaned"
+  ]
+}
