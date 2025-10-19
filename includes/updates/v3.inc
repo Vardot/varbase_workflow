@@ -20,7 +20,7 @@ function varbase_workflow_update_103001() {
     'access tokens overview',
     'renew token',
     'delete token',
-    ]);
+  ]);
 
   // Auto grant access unpublished for limited applicable entity types.
   varbase_workflow__auto_grant_access_unpublished();

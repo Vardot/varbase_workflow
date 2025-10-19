@@ -1,7 +1,11 @@
 const path = require('path');
-const isDev = (process.env.NODE_ENV !== 'production');
+const postcss = require('postcss');
+const postcssDiscardComments = require('postcss-discard-comments');
+
+const isDev = process.env.NODE_ENV !== 'production';
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 
@@ -11,11 +15,13 @@ module.exports = {
     // ################################################
     // SCSS
     // ################################################
-    'theme/moderation-state.theme': ['./scss/theme/moderation-state.theme.scss'],
+    'theme/moderation-state.theme': [
+      './scss/theme/moderation-state.theme.scss',
+    ],
   },
   output: {
     path: path.resolve(__dirname, 'css'),
-    pathinfo: true,
+    pathinfo: isDev,
     publicPath: '../../',
   },
   module: {
@@ -24,11 +30,12 @@ module.exports = {
         test: /\.(png|jpe?g|gif|svg)$/,
         exclude: /sprite\.svg$/,
         type: 'javascript/auto',
-        use: [{
+        use: [
+          {
             loader: 'file-loader',
             options: {
-              name: '[path][name].[ext]', //?[contenthash]
-              outputPath: '../../'
+              name: '[path][name].[ext]', // ?[contenthash]
+              outputPath: '../../',
             },
           },
           {
@@ -44,22 +51,21 @@ module.exports = {
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
-            options: {
-              name: '[name].[ext]?[hash]',
-            }
           },
           {
             loader: 'css-loader',
             options: {
               sourceMap: isDev,
               importLoaders: 2,
-              url: (url) => {
-                // Don't handle sprite svg
-                if (url.includes('sprite.svg')) {
-                  return false;
-                }
+              url: {
+                filter: (url) => {
+                  // Don't handle sprite svg
+                  if (url.includes('sprite.svg')) {
+                    return false;
+                  }
 
-                return true;
+                  return true;
+                },
               },
             },
           },
@@ -70,15 +76,19 @@ module.exports = {
               postcssOptions: {
                 plugins: [
                   autoprefixer(),
-                  ['postcss-perfectionist', {
-                    format: 'expanded',
-                    indentSize: 2,
-                    trimLeadingZero: true,
-                    zeroLengthNoUnit: false,
-                    maxAtRuleLength: false,
-                    maxSelectorLength: false,
-                    maxValueLength: false,
-                  }]
+                  [
+                    'postcss-perfectionist',
+                    {
+                      format: 'expanded',
+                      indentSize: 2,
+                      trimLeadingZero: true,
+                      zeroLengthNoUnit: false,
+                      maxAtRuleLength: false,
+                      maxSelectorLength: false,
+                      maxValueLength: false,
+                    },
+                  ],
+                  postcssDiscardComments({ removeAll: true }),
                 ],
               },
             },
@@ -99,20 +109,52 @@ module.exports = {
     ],
   },
   resolve: {
-    modules: [
-      path.join(__dirname, 'node_modules'),
-    ],
+    modules: [path.join(__dirname, 'node_modules')],
     extensions: ['.js', '.json'],
+  },
+  optimization: {
+    minimizer: [
+      new CssMinimizerPlugin({
+        test: /\.css$/i,
+        parallel: false,
+        minify: async (data) => {
+          const [[filename, input]] = Object.entries(data);
+          const result = await postcss([
+            postcssDiscardComments({ removeAll: true }),
+          ]).process(input, {
+            from: filename,
+            to: filename,
+            map: false,
+          });
+
+          return {
+            code: result.css,
+            map: result.map,
+            warnings: result.warnings().map((warning) => warning.toString()),
+          };
+        },
+      }),
+    ],
+    minimize: true,
   },
   plugins: [
     new RemoveEmptyScriptsPlugin(),
     new CleanWebpackPlugin({
-      cleanStaleWebpackAssets: false
+      cleanStaleWebpackAssets: false,
     }),
     new MiniCssExtractPlugin(),
   ],
   watchOptions: {
     aggregateTimeout: 300,
-    ignored: ['**/*.woff', '**/*.json', '**/*.woff2', '**/*.jpg', '**/*.png', '**/*.svg', 'node_modules', 'images'],
-  }
+    ignored: [
+      '**/*.woff',
+      '**/*.json',
+      '**/*.woff2',
+      '**/*.jpg',
+      '**/*.png',
+      '**/*.svg',
+      'node_modules',
+      'images',
+    ],
+  },
 };
