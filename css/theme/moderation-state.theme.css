@@ -1,5 +1,4 @@
-#edit-gin-sticky-actions #edit-moderation-state-0 .form-element--type-select,
-#edit-gin-sticky-actions #edit-moderation-state-0--2 .form-element--type-select {
+#edit-gin-sticky-actions #edit-moderation-state-0 .form-element--type-select,#edit-gin-sticky-actions #edit-moderation-state-0--2 .form-element--type-select {
   width: 8rem;
   padding-block: 0;
   height: 1rem;
@@ -8,19 +7,16 @@
   font-weight: var(--gin-font-weight-bold);
 }
 
-#edit-gin-sticky-actions #edit-moderation-state-0 .form-item--moderation-state-0-current,
-#edit-gin-sticky-actions #edit-moderation-state-0--2 .form-item--moderation-state-0-current {
+#edit-gin-sticky-actions #edit-moderation-state-0 .form-item--moderation-state-0-current,#edit-gin-sticky-actions #edit-moderation-state-0--2 .form-item--moderation-state-0-current {
   display: none;
 }
 
-#edit-gin-sticky-actions #edit-moderation-state-0 .form-item--moderation-state-0-state,
-#edit-gin-sticky-actions #edit-moderation-state-0--2 .form-item--moderation-state-0-state {
+#edit-gin-sticky-actions #edit-moderation-state-0 .form-item--moderation-state-0-state,#edit-gin-sticky-actions #edit-moderation-state-0--2 .form-item--moderation-state-0-state {
   margin-block-start: 0;
   margin-block-end: 0;
 }
 
-#edit-gin-sticky-actions #edit-moderation-state-0 .form-item--moderation-state-0-state label,
-#edit-gin-sticky-actions #edit-moderation-state-0--2 .form-item--moderation-state-0-state label {
+#edit-gin-sticky-actions #edit-moderation-state-0 .form-item--moderation-state-0-state label,#edit-gin-sticky-actions #edit-moderation-state-0--2 .form-item--moderation-state-0-state label {
   display: none;
 }
 
@@ -32,8 +28,7 @@
   order: -4;
 }
 
-#edit-gin-sticky-actions .button,
-#edit-gin-sticky-actions .action-link {
+#edit-gin-sticky-actions .button,#edit-gin-sticky-actions .action-link {
   margin-block: 0;
   padding-block: .4rem;
 }
@@ -41,3 +36,4 @@
 #edit-gin-sidebar #edit-moderation-state-wrapper {
   display: none;
 }
+

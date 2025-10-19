@@ -47,7 +47,7 @@ class VarbaseWorkflowTest extends WebDriverTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    // Insall the Claro admin theme.
+    // Install the Claro admin theme.
     $this->container->get('theme_installer')->install(['claro']);
 
     // Set the Claro theme as the default admin theme.
@@ -146,7 +146,7 @@ class VarbaseWorkflowTest extends WebDriverTestBase {
 
     // Create a testing node.
     $this->drupalCreateNode([
-      'title' => 'Test News Contnet',
+      'title' => 'Test News Content',
       'type' => 'news',
       'body' => [
          [
@@ -156,8 +156,8 @@ class VarbaseWorkflowTest extends WebDriverTestBase {
     ]);
 
     $this->drupalGet('admin/content');
-    $this->assertSession()->pageTextContains('Test News Contnet');
-    $this->clickLink('Test News Contnet');
+    $this->assertSession()->pageTextContains('Test News Content');
+    $this->clickLink('Test News Content');
     $this->assertSession()->pageTextContains('Tasks');
 
   }
