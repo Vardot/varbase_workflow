@@ -16,7 +16,7 @@
     "source": "http://cgit.drupalcode.org/varbase_workflow"
   },
   "require": {
-    "drupal/core": "~10.5.0 || ~11.2.0",
+    "drupal/core": "~10.6.0 || ~11.3.0",
     "vardot/varbase-patches": "~10",
     "drupal/moderation_sidebar": "~1",
     "drupal/content_planner": "~1",
