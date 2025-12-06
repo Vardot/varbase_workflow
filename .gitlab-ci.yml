@@ -6,12 +6,11 @@ include:
       - "/includes/include.drupalci.variables.yml"
       - "/includes/include.drupalci.workflows.yml"
 composer:
-  variables:
-    _LENIENT_ALLOW_LIST: "select2, styleguide"
   script:
     - composer config minimum-stability dev
     - composer config repositories.drupal composer https://packages.drupal.org/8
     - composer config --no-plugins allow-plugins.composer/installers true
+    - composer config --no-plugins allow-plugins.drupal/core-composer-scaffold true
     - composer config --no-plugins allow-plugins.cweagans/composer-patches true
     - composer config --no-plugins allow-plugins.oomphinc/composer-installers-extender true
     - composer config --no-plugins allow-plugins.phpstan/extension-installer true
@@ -21,12 +20,6 @@ composer:
 composer-lint:
   allow_failure: true
 cspell:
-  stage: validate
-  image: node:18
-  before_script:
-    - npm install -g cspell
-  script:
-    - cspell "**/*.{php,module,inc,install,test,profile,theme,js,css,md,yml,txt}" --no-progress || true
   allow_failure: true
 eslint:
   allow_failure: true
