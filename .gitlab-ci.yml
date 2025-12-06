@@ -6,12 +6,11 @@ include:
       - "/includes/include.drupalci.variables.yml"
       - "/includes/include.drupalci.workflows.yml"
 composer:
-  variables:
-    _LENIENT_ALLOW_LIST: "select2, styleguide"
   script:
     - composer config minimum-stability dev
     - composer config repositories.drupal composer https://packages.drupal.org/8
     - composer config --no-plugins allow-plugins.composer/installers true
+    - composer config --no-plugins allow-plugins.drupal/core-composer-scaffold true
     - composer config --no-plugins allow-plugins.cweagans/composer-patches true
     - composer config --no-plugins allow-plugins.oomphinc/composer-installers-extender true
     - composer config --no-plugins allow-plugins.phpstan/extension-installer true
