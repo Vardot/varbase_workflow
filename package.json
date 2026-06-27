@@ -1,8 +1,8 @@
 {
   "name": "varbase_workflow",
-  "description": "Provides a toolkit for robust, quick, and enterprise content moderation features.",
-  "private": true,
+  "description": "Varbase Core provides the base configuration and shared modules for a Varbase site.",
   "license": "GPL-2.0-or-later",
+  "private": true,
   "engines": {
     "yarn": ">= 4.9.3",
     "node": ">= 20.0"
@@ -10,18 +10,33 @@
   "keywords": [
     "Drupal",
     "Varbase",
-    "Varbase Workflow",
-    "Workflow",
-    "Moderation",
-    "Content Planner",
-    "Scheduler"
+    "JSON API",
+    "Open API"
   ],
   "author": "Vardot",
   "scripts": {
     "phpcs": "phpcs --standard=./.phpcs.xml .",
     "phpcbf": "phpcbf --standard=./.phpcs.xml .",
-    "lint:yaml": "node ./node_modules/eslint/bin/eslint.js --ext .yml .",
-    "spellcheck": "cspell lint ."
+    "lint:yaml": "node ./node_modules/eslint/bin/eslint.js --config=.eslintrc.json --ext .yml .",
+    "spellcheck": "cspell lint .",
+    "test": "cucumber-js --config cucumber.js",
+    "test:chromium": "BROWSER=chromium cucumber-js --config cucumber.js",
+    "test:firefox": "BROWSER=firefox cucumber-js --config cucumber.js",
+    "test:webkit": "BROWSER=webkit cucumber-js --config cucumber.js",
+    "generate-reports": "generate-reports"
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "10.0.1",
+    "@cucumber/pretty-formatter": "1.0.0",
+    "playwright": "1.60.0",
+    "slick-carousel": "^1.8",
+    "tsx": "4.22.1",
+    "webship-js": "~2.0.0"
+  },
+  "resolutions": {
+    "@cucumber/cucumber": "10.0.1",
+    "@cucumber/pretty-formatter": "1.0.0",
+    "playwright": "1.60.0"
   },
   "devDependencies": {
     "cspell": "^8.16.1",
@@ -29,20 +44,10 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^10.1.3",
     "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jquery": "^1.5.1",
     "eslint-plugin-prettier": "^5.4.0",
     "eslint-plugin-yml": "^1.18.0",
     "prettier": "^3.5.3"
   },
-  "browserslist": [
-    "last 2 Chrome major versions",
-    "last 2 Firefox major versions",
-    "last 2 Safari major versions",
-    "last 2 Edge major versions",
-    "last 2 Opera versions",
-    "last 2 iOS major versions",
-    "last 1 ChromeAndroid version",
-    "last 1 Samsung version",
-    "Firefox ESR"
-  ],
   "packageManager": "yarn@4.9.3"
 }

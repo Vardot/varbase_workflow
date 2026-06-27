@@ -1,0 +1,5 @@
+name: 'Varbase Workflow Test'
+description: 'Provisions a Standard site with Varbase Workflow (Editorial and Simple content moderation workflows) for the automated tests.'
+type: 'Testing'
+install:
+  - varbase_workflow
