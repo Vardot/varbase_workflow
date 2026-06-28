@@ -105,3 +105,18 @@ webship-js-test:
         --format all
         --pdf-out tests/reports/cucumber_report.pdf
   allow_failure: false
+
+# Allow the Varbase stack Composer plugins in the CI build (allow-plugins lives in varbase_project, not modules).
+composer:
+  before_script:
+    - composer config --no-plugins allow-plugins.composer/installers true || true
+    - composer config --no-plugins allow-plugins.cweagans/composer-patches true || true
+    - composer config --no-plugins allow-plugins.oomphinc/composer-installers-extender true || true
+    - composer config --no-plugins allow-plugins.drupal/core-composer-scaffold true || true
+    - composer config --no-plugins allow-plugins.drupal/core-project-message true || true
+    - composer config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true || true
+    - composer config --no-plugins allow-plugins.phpstan/extension-installer true || true
+    - composer config --no-plugins allow-plugins.php-http/discovery true || true
+    - composer config --no-plugins allow-plugins.tbachert/spi true || true
+    - composer config --no-plugins allow-plugins.vardot/varbase-patches true || true
+    - composer require --no-update vardot/varbase-patches:~9.2.0
