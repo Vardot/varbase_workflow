@@ -7,6 +7,7 @@
 - [ ] User Guide Documentation support on feature change/addition
 - [ ] UX/UI designer responsibilities
 - [ ] Accessibility and Readability
+- [ ] Reviewed by a human
 - [ ] Code review by maintainers
 - [ ] Full testing and approval
 - [ ] Credit contributors
