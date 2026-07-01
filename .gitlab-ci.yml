@@ -108,6 +108,11 @@ webship-js-test:
 
 # Allow the Varbase stack Composer plugins in the CI build (allow-plugins lives in varbase_project, not modules).
 composer:
+  variables:
+    # Drupal 11.4.0 released 2026-07-01; the pinned templates ref's $CORE_STABLE is still
+    # 11.3. Force the build onto 11.4.0 and ignore the project-derived core version.
+    DRUPAL_CORE: "11.4.0"
+    IGNORE_PROJECT_DRUPAL_CORE_VERSION: "1"
   before_script:
     - composer config --no-plugins allow-plugins.composer/installers true || true
     - composer config --no-plugins allow-plugins.cweagans/composer-patches true || true
