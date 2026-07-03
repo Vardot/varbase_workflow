@@ -1,0 +1,5 @@
+name: 'Varbase Workflow Test'
+description: 'Provisions a Standard site with Varbase Workflow (the Editorial and Simple content moderation workflows and its content-moderation submodule stack) for the automated browser tests. The CI browser job installs the module with `drush pm:install varbase_workflow` (pm:install has no Recipe-runner checkpoint transaction, so a benign config warning cannot roll the install back); this recipe documents the equivalent provisioning and can be applied with `drush recipe`.'
+type: 'Testing'
+install:
+  - varbase_workflow

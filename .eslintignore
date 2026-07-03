@@ -3,3 +3,4 @@
 **/node_modules
 drupalci.yml
 **/drupalci.yml
+webpack.config.build.js

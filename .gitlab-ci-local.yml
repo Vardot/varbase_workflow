@@ -1,0 +1,107 @@
+################################################################################
+# Local-runner variant of .gitlab-ci.yml for `gitlab-ci-local`.
+#
+# The canonical .gitlab-ci.yml uses the drupalci templates, which need the full
+# Drupal CI build environment and are impractical to run on a laptop. This file
+# reproduces the SAME validation jobs (composer-lint, cspell, eslint, phpcs,
+# phpstan, stylelint) as self-contained jobs that run under plain Docker images,
+# so they can be executed locally with:
+#
+#   gitlab-ci-local --file .gitlab-ci-local.yml               # run all jobs
+#   gitlab-ci-local --file .gitlab-ci-local.yml phpcs         # one job
+#   gitlab-ci-local --file .gitlab-ci-local.yml --list        # list jobs
+#
+# EVERY job is allow_failure:false - the whole local pipeline must be green.
+# This mirrors the strict gating enforced on the remote drupalci pipeline.
+################################################################################
+
+stages: [validate]
+
+variables:
+  DRUPAL_CORE: "11.4.0"
+  COMPOSER_ALLOW_SUPERUSER: "1"
+  COMPOSER_MEMORY_LIMIT: "-1"
+
+# ---- composer-lint : validate composer.json --------------------------------
+composer-lint:
+  stage: validate
+  image: public.ecr.aws/docker/library/composer:2
+  script:
+    - composer validate --no-check-all --no-check-publish
+  allow_failure: false
+
+# ---- cspell : spell-check the whole project --------------------------------
+cspell:
+  stage: validate
+  image: public.ecr.aws/docker/library/node:20
+  script:
+    - npm install -g cspell@8
+    - cspell lint . --no-progress
+  allow_failure: false
+
+# ---- eslint : lint .js with the project config -----------------------------
+eslint:
+  stage: validate
+  image: public.ecr.aws/docker/library/node:20
+  script:
+    - npm install --no-save --no-fund --no-audit eslint@8
+    - >
+      node ./node_modules/.bin/eslint --no-error-on-unmatched-pattern
+      --ext=.js .
+  allow_failure: false
+
+# ---- stylelint : lint CSS with the project config --------------------------
+stylelint:
+  stage: validate
+  image: public.ecr.aws/docker/library/node:20
+  script:
+    - npm install --no-save --no-fund --no-audit stylelint@16
+    - >
+      node ./node_modules/.bin/stylelint "**/*.css"
+      --ignore-path ./.stylelintignore
+  allow_failure: false
+
+# ---- phpcs : Drupal + DrupalPractice coding standards ----------------------
+phpcs:
+  stage: validate
+  image: public.ecr.aws/docker/library/php:8.3-cli
+  before_script:
+    - apt-get update -y > /dev/null && apt-get install -y -qq git unzip > /dev/null
+    - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    - composer global config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+    - composer global require --no-interaction --no-progress drupal/coder:^8.3 dealerdirect/phpcodesniffer-composer-installer:^1
+    - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  script:
+    - phpcs -p --standard=./.phpcs.xml .
+  allow_failure: false
+
+# ---- phpstan : static analysis at the drupalci default level (0) -----------
+phpstan:
+  stage: validate
+  image: public.ecr.aws/docker/library/php:8.3-cli
+  before_script:
+    - apt-get update -y > /dev/null && apt-get install -y -qq git unzip > /dev/null
+    - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    - composer create-project drupal/recommended-project:~11.3.0 /drupal --no-interaction --no-install
+    - cd /drupal
+    - composer config --no-plugins allow-plugins true
+    - composer config minimum-stability dev
+    - composer config prefer-stable true
+    - composer require --no-interaction --no-progress --ignore-platform-reqs mglaman/phpstan-drupal phpstan/extension-installer drush/drush
+    # Bring in the packages that provide the symbols varbase_workflow references
+    # (the vardot installer/entity factories and the access_unpublished module),
+    # so phpstan resolves them like the remote drupalci job (which installs the
+    # module's full composer.json). Without these, class.notFound would be false
+    # positives.
+    - composer require --no-interaction --no-progress --ignore-platform-reqs
+        vardot/module-installer-factory vardot/entity-definition-update-manager
+        drupal/access_unpublished drupal/eca drupal/scheduler
+        drupal/scheduler_content_moderation_integration drupal/content_planner || true
+    - composer install --no-interaction --no-progress --ignore-platform-reqs
+    - mkdir -p web/modules/custom && cp -r "$CI_PROJECT_DIR" "web/modules/custom/varbase_workflow"
+  script:
+    - cd /drupal
+    - |
+      printf 'parameters:\n  level: 0\n  fileExtensions:\n    - php\n    - module\n    - inc\n    - install\n    - theme\n    - profile\n  ignoreErrors:\n    - "#^Unsafe usage of new static#"\n  reportUnmatchedIgnoredErrors: false\n' > phpstan-local.neon
+    - php -d memory_limit=2G ./vendor/bin/phpstan analyse -c phpstan-local.neon web/modules/custom/varbase_workflow --no-progress
+  allow_failure: false

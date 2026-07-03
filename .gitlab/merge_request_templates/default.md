@@ -1,4 +1,4 @@
-### Remaining tasks
+### Checkpoints
 - [x] File an issue about this project
 - [x] Addition/Change/Update/Fix to this project
 - [ ] Testing to ensure no regression
@@ -11,5 +11,5 @@
 - [ ] Full testing and approval
 - [ ] Credit contributors
 - [ ] Review with the product owner
-- [ ] Update Release Notes and Update Helper on new feature change/addition
+- [ ] Update Release Notes
 - [ ] Release

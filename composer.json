@@ -1,29 +1,42 @@
 {
-  "name": "drupal/varbase_workflow",
-  "description": "Provides a toolkit for robust, quick, and enterprise content moderation features.",
-  "type": "drupal-module",
-  "homepage": "https://www.drupal.org/project/varbase_workflow",
-  "license": "GPL-2.0-or-later",
-  "authors": [
-    {
-      "name": "Vardot",
-      "homepage": "https://www.drupal.org/vardot",
-      "role": "Maintainer"
+    "name": "drupal/varbase_workflow",
+    "description": "Provides a toolkit for robust, quick, and enterprise content moderation features.",
+    "type": "drupal-module",
+    "homepage": "https://www.drupal.org/project/varbase_workflow",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Vardot",
+            "homepage": "https://www.drupal.org/vardot",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/varbase_workflow",
+        "source": "http://cgit.drupalcode.org/varbase_workflow"
+    },
+    "require": {
+        "drupal/core": "~11.4.0",
+        "vardot/varbase-patches": "~10.1.0",
+        "vardot/module-installer-factory": "~1",
+        "vardot/entity-definition-update-manager": "~1",
+        "drupal/content_planner": "~1",
+        "drupal/scheduler": "~2",
+        "drupal/scheduler_content_moderation_integration": "~3",
+        "drupal/content_moderation_notifications": "~3",
+        "drupal/admin_audit_trail": "~1",
+        "drupal/access_unpublished": "~1",
+        "drupal/eca": "~3",
+        "drupal/smart_trim": "~2"
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/runtime": true,
+            "vardot/varbase-patches": true,
+            "cweagans/composer-patches": true,
+            "composer/installers": true,
+            "drupal/core-composer-scaffold": true,
+            "oomphinc/composer-installers-extender": true
+        }
     }
-  ],
-  "support": {
-    "issues": "https://www.drupal.org/project/issues/varbase_workflow",
-    "source": "http://cgit.drupalcode.org/varbase_workflow"
-  },
-  "require": {
-    "drupal/core": "~11.3.0",
-    "vardot/varbase-patches": "~10.1.0",
-    "drupal/content_planner": "~1",
-    "drupal/scheduler": "~2",
-    "drupal/scheduler_content_moderation_integration": "~3",
-    "drupal/content_moderation_notifications": "~3",
-    "drupal/admin_audit_trail": "~1",
-    "drupal/access_unpublished": "~1",
-    "drupal/eca": "~3" 
-  }
 }
