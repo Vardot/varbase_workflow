@@ -1,0 +1,69 @@
+name: Varbase Workflow - Default
+description: A recipe to manage default installed modules, configs and permissions.
+type: install
+config:
+  actions:
+    user.role.editor:
+      grantPermissions:
+        - 'use varbase_editorial_workflow transition archive'
+        - 'use varbase_editorial_workflow transition create_new_draft'
+        - 'use varbase_editorial_workflow transition publish'
+        - 'use varbase_editorial_workflow transition archived_published'
+        - 'use varbase_editorial_workflow transition review'
+        - 'use varbase_simple_workflow transition archive'
+        - 'use varbase_simple_workflow transition create_new_draft'
+        - 'use varbase_simple_workflow transition publish'
+        - 'use varbase_simple_workflow transition archived_published'
+        - 'view any unpublished content'
+        - 'view latest version'
+        - 'use moderation sidebar'
+        - 'schedule publishing of nodes'
+        - 'view scheduled content'
+    user.role.content_admin:
+      grantPermissions:
+        - 'use varbase_editorial_workflow transition archive'
+        - 'use varbase_editorial_workflow transition create_new_draft'
+        - 'use varbase_editorial_workflow transition publish'
+        - 'use varbase_editorial_workflow transition archived_published'
+        - 'use varbase_editorial_workflow transition review'
+        - 'use varbase_simple_workflow transition archive'
+        - 'use varbase_simple_workflow transition create_new_draft'
+        - 'use varbase_simple_workflow transition publish'
+        - 'use varbase_simple_workflow transition archived_published'
+        - 'view any unpublished content'
+        - 'view latest version'
+        - 'use moderation sidebar'
+        - 'schedule publishing of nodes'
+        - 'view scheduled content'
+    user.role.seo_admin:
+      grantPermissions:
+        - 'use varbase_editorial_workflow transition archive'
+        - 'use varbase_editorial_workflow transition create_new_draft'
+        - 'use varbase_editorial_workflow transition publish'
+        - 'use varbase_editorial_workflow transition archived_published'
+        - 'use varbase_editorial_workflow transition review'
+        - 'use varbase_simple_workflow transition archive'
+        - 'use varbase_simple_workflow transition create_new_draft'
+        - 'use varbase_simple_workflow transition publish'
+        - 'use varbase_simple_workflow transition archived_published'
+        - 'view any unpublished content'
+        - 'view latest version'
+        - 'use moderation sidebar'
+        - 'schedule publishing of nodes'
+        - 'view scheduled content'
+    user.role.site_admin:
+      grantPermissions:
+        - 'use varbase_editorial_workflow transition archive'
+        - 'use varbase_editorial_workflow transition create_new_draft'
+        - 'use varbase_editorial_workflow transition publish'
+        - 'use varbase_editorial_workflow transition archived_published'
+        - 'use varbase_editorial_workflow transition review'
+        - 'use varbase_simple_workflow transition archive'
+        - 'use varbase_simple_workflow transition create_new_draft'
+        - 'use varbase_simple_workflow transition publish'
+        - 'use varbase_simple_workflow transition archived_published'
+        - 'view any unpublished content'
+        - 'view latest version'
+        - 'use moderation sidebar'
+        - 'schedule publishing of nodes'
+        - 'view scheduled content'

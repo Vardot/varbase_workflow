@@ -5,6 +5,8 @@
  * Contains install and update for Varbase Workflow module.
  */
 
+use Drupal\Core\Recipe\Recipe;
+use Drupal\Core\Recipe\RecipeRunner;
 use Vardot\Entity\EntityDefinitionUpdateManager;
 use Vardot\Installer\ModuleInstallerFactory;
 
@@ -30,6 +32,7 @@ function varbase_workflow_install() {
     ->getInstanceFromDefinition(EntityDefinitionUpdateManager::class)
     ->applyUpdates();
 
-  // Add permissions.
-  ModuleInstallerFactory::addPermissions('varbase_workflow');
+  // Grant role permissions via the default recipe.
+  $default_recipe = Recipe::createFromDirectory(__DIR__ . '/recipes/default');
+  RecipeRunner::processRecipe($default_recipe);
 }
