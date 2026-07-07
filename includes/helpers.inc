@@ -46,6 +46,7 @@ function varbase_workflow__grant_access_unpublished_permissions(string $user_rol
     $definitions = \Drupal::service('entity_type.manager')->getDefinitions();
     foreach ($definitions as $definition) {
       if (($definition_id == '' || $definition->id() == $definition_id)
+        && \Drupal::moduleHandler()->moduleExists('access_unpublished')
         && AccessUnpublished::applicableEntityType($definition)
         && !empty($vw_settings[$definition_id])
         && isset($vw_settings[$definition_id])

@@ -1,0 +1,9 @@
+name: Varbase Workflow - Default
+description: A recipe to manage default installed modules, configs and permissions.
+type: install
+install:
+  - scheduler_content_moderation_integration
+  - admin_audit_trail_workflows
+  - access_unpublished
+  - eca_workflow
+  - smart_trim

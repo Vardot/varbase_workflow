@@ -5,6 +5,8 @@
  * Contains install and update for Varbase Workflow module.
  */
 
+use Drupal\Core\Recipe\Recipe;
+use Drupal\Core\Recipe\RecipeRunner;
 use Vardot\Entity\EntityDefinitionUpdateManager;
 use Vardot\Installer\ModuleInstallerFactory;
 
@@ -17,8 +19,12 @@ include_once __DIR__ . '/includes/updates.inc';
  */
 function varbase_workflow_install() {
 
-  // Processor for install: in varbase_workflow.info.yml file.
-  ModuleInstallerFactory::installList('varbase_workflow');
+  // Install the default modules via the module's default recipe.
+  // Drupal's Recipe API installs and enables the listed modules (with their
+  // autoloaders) in one step, so class references such as the Access
+  // Unpublished helper are ready before the rest of this hook continues.
+  $default_recipe = Recipe::createFromDirectory(__DIR__ . '/recipes/default');
+  RecipeRunner::processRecipe($default_recipe);
 
   // Install optional configs.
   ModuleInstallerFactory::importConfigsFromScanedDirectory('varbase_workflow', '/^.*(moderated_content.yml)$/i');
