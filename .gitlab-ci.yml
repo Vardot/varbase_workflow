@@ -27,6 +27,13 @@ variables:
   YARN_ENABLE_IMMUTABLE_INSTALLS: "false"
 
 # = Validate stage (all blocking) =
+# Run for merge requests, branch pushes, and tags.
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH
+    - if: $CI_COMMIT_TAG
+
 composer-lint:
   allow_failure: false
 cspell:

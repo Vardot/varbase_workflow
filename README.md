@@ -1,3 +1,7 @@
+[![pipeline status](https://git.drupalcode.org/project/varbase_workflow/badges/2.2.x/pipeline.svg)](https://git.drupalcode.org/project/varbase_workflow/-/pipelines)
+[![Varbase Workflow](https://img.shields.io/badge/Varbase%20Workflow-2.2.0-0d6efc?labelColor=001d38&style=flat-square)](https://git.drupalcode.org/project/varbase_workflow/-/pipelines?ref=2.2.0)
+[![Automated Functional Testing](https://git.drupalcode.org/project/varbase_workflow/badges/2.2.x/pipeline.svg)](https://git.drupalcode.org/project/varbase_workflow/-/pipelines)
+
 # Varbase Workflow
 
 Varbase Workflow includes a toolkit for robust, quick, and enterprise content
