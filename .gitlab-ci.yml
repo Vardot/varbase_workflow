@@ -6,7 +6,7 @@
 #      eslint, phpcs, phpstan, stylelint) provided by the drupalci templates.
 #      Every validate job is blocking (allow_failure:false) so the pipeline
 #      gates strictly.
-#   2. A webship-js BDD browser-test job (Playwright + Cucumber-js) that runs
+#   2. A varbase-e2e BDD browser-test job (Playwright + Cucumber-js) that runs
 #      the tests/features/drupal/** suite against a freshly installed Drupal
 #      Standard site with Varbase Workflow enabled (the Editorial and Simple
 #      content moderation workflows).
@@ -69,15 +69,15 @@ stylelint:
     - apt-get install -y nodejs
     - node --version && npm --version
     - 'test -f .yarnrc.yml || echo "nodeLinker: node-modules" > .yarnrc.yml'
-    # Back up cucumber.js - webship-js's postinstall can clobber it under yarn 4.
+    # Back up cucumber.js - varbase-e2e's postinstall can clobber it under yarn 4.
     - cp cucumber.js .cucumber.js.bak
     - corepack enable
     - yarn install
     - cp .cucumber.js.bak cucumber.js && rm .cucumber.js.bak
     - ./node_modules/.bin/playwright install --with-deps chromium
 
-# = webship-js BDD - Drupal Standard profile + Varbase Workflow =
-webship-js-test:
+# = varbase-e2e BDD - Drupal Standard profile + Varbase Workflow =
+varbase-e2e-test:
   extends: .testing-job-base
   needs: [composer]
   # A slim install (Varbase Workflow + its content-moderation submodule stack)
@@ -128,11 +128,11 @@ webship-js-test:
     - $CI_PROJECT_DIR/vendor/bin/drush --root=$CI_PROJECT_DIR/$_WEB_ROOT cache:rebuild
     - !reference [.fragments, node_playwright]
   script:
-    # cucumber.js loads only tests/features/drupal/**. Disable webship-js's auto
+    # cucumber.js loads only tests/features/drupal/**. Disable varbase-e2e's auto
     # HTML hook and run generate-reports explicitly so HTML + PDF land next to
     # the JSON in tests/reports/.
-    - WEBSHIP_REPORT_DISABLE=1 ./node_modules/.bin/cucumber-js --config cucumber.js --tags "not @wip"
-    - node ./node_modules/webship-js/bin/generate-reports.js
+    - VARBASE_E2E_REPORT_DISABLE=1 ./node_modules/.bin/cucumber-js --config cucumber.js --tags "not @wip"
+    - node ./node_modules/@vardot/varbase-e2e/bin/generate-reports.js
         --json tests/reports/cucumber_report.json
         --out  tests/reports/cucumber_report.html
         --format all
