@@ -201,7 +201,7 @@ class VarbaseWorkflowSettingsForm extends ConfigFormBase {
       $role->grantPermission($permission);
     }
 
-    $role->trustData()->save();
+    $role->save();
   }
 
 }

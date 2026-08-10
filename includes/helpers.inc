@@ -76,7 +76,7 @@ function varbase_workflow__grant_access_unpublished_permissions(string $user_rol
       $role->grantPermission($permission);
     }
 
-    $role->trustData()->save();
+    $role->save();
 
   }
 }
