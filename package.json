@@ -31,7 +31,7 @@
     "playwright": "1.60.0",
     "slick-carousel": "^1.8",
     "tsx": "4.22.1",
-    "@vardot/varbase-e2e": "~2.0.1"
+    "@vardot/varbase-e2e": "^2"
   },
   "resolutions": {
     "@cucumber/cucumber": "10.0.1",
