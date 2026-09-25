@@ -1518,9 +1518,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vardot/varbase-e2e@npm:^2.0.4":
-  version: 2.0.4
-  resolution: "@vardot/varbase-e2e@npm:2.0.4"
+"@vardot/varbase-e2e@npm:^2.0.7":
+  version: 2.0.7
+  resolution: "@vardot/varbase-e2e@npm:2.0.7"
   dependencies:
     "@axe-core/playwright": "npm:^4.11.3"
     "@cucumber/cucumber": "npm:*"
@@ -1539,7 +1539,7 @@ __metadata:
   bin:
     generate-reports: bin/generate-reports.js
     init-varbase-e2e: bin/init-varbase-e2e.js
-  checksum: 10c0/59b71a65b6af2028788ee31d515de173f2ed9d4487021597a89a096bda47aff86c229ca29b274b86c3c1554d010bf2196580ae7c1dc5cb1aedb850f1a5062cc0
+  checksum: 10c0/35b76d9835ab70a261735989c769fafd55186ae044880fe4f984d9d76cb9726626d81b444cd0ed958b19b0c4094e8d3cb8758a0aac7813a0539222b2bf314e73
   languageName: node
   linkType: hard
 
@@ -7862,7 +7862,7 @@ __metadata:
   dependencies:
     "@cucumber/cucumber": "npm:10.0.1"
     "@cucumber/pretty-formatter": "npm:1.0.0"
-    "@vardot/varbase-e2e": "npm:^2.0.4"
+    "@vardot/varbase-e2e": "npm:^2.0.7"
     autoprefixer: "npm:^10.4.17"
     clean-webpack-plugin: "npm:^4.0.0"
     cspell: "npm:^8.16.1"

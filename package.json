@@ -34,7 +34,7 @@
   "dependencies": {
     "@cucumber/cucumber": "10.0.1",
     "@cucumber/pretty-formatter": "1.0.0",
-    "@vardot/varbase-e2e": "^2.0.4",
+    "@vardot/varbase-e2e": "^2.0.7",
     "playwright": "1.60.0",
     "tsx": "4.22.1"
   },
