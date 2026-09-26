@@ -137,3 +137,7 @@ composer:
     - composer config --no-plugins allow-plugins.tbachert/spi true || true
     - composer config --no-plugins allow-plugins.vardot/varbase-patches true || true
     - composer require --no-update vardot/varbase-patches:~9.2.0
+    # Temporary (#3625777): Twig 3.30.0 compiles Drupal core's drupal_escape
+    # filter into a direct EscaperRuntime::escape() call, so every page render
+    # is a fatal TypeError. Keep the build below 3.30 until a fixed Twig is out.
+    - composer require --dev --no-update "twig/twig:<3.30"
