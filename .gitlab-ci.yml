@@ -23,7 +23,7 @@ include:
 variables:
   # The 10.1.x branch targets Drupal core 11.4 only. Pin the core version and
   # ignore the project's info.yml core_version_requirement when resolving it.
-  DRUPAL_CORE: "11.4.0"
+  DRUPAL_CORE: "11.4.11"
   IGNORE_PROJECT_DRUPAL_CORE_VERSION: "1"
   # Make every drupalci validate job blocking (stylelint et al. default to
   # allow_failure:true). Combined with the per-job allow_failure:false overrides
@@ -51,6 +51,10 @@ phpcs:
 phpstan:
   allow_failure: false
 stylelint:
+  variables:
+    # Drupal core's own Yarn 4.9.1 would read the project .yarnrc.yml (Yarn >= 4.14 keys) too.
+    YARN_RC_FILENAME: .yarnrc.core.yml
+    YARN_NODE_LINKER: node-modules
   allow_failure: false
 
 # = Reusable before_script fragments (via !reference) =
@@ -65,7 +69,7 @@ stylelint:
     - service apache2 start
     - export SIMPLETEST_DB=mysql://$MYSQL_USER:$MYSQL_PASSWORD@database/$MYSQL_DATABASE
   node_playwright: &node_playwright
-    - curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+    - curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
     - apt-get install -y nodejs
     - node --version && npm --version
     - 'test -f .yarnrc.yml || echo "nodeLinker: node-modules" > .yarnrc.yml'
@@ -138,6 +142,13 @@ varbase-e2e-test:
         --format all
         --pdf-out tests/reports/cucumber_report.pdf
   allow_failure: false
+
+.composer-base:
+  variables:
+    # Every composer job, variants included: Drupal core's own Yarn 4.9.1 would
+    # read the project .yarnrc.yml (Yarn >= 4.14 keys) too.
+    YARN_RC_FILENAME: .yarnrc.core.yml
+    YARN_NODE_LINKER: node-modules
 
 # Allow the Varbase stack Composer plugins in the CI build (allow-plugins lives in varbase_project, not modules).
 composer:
