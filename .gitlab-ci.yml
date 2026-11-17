@@ -21,6 +21,8 @@ include:
       - "/includes/include.drupalci.workflows.yml"
 
 variables:
+  # PHP 8.5 for the drupalci job images (the template default is PHP 8.3).
+  _TARGET_PHP: "8.5"
   # The 10.1.x branch targets Drupal core 11.4 only. Pin the core version and
   # ignore the project's info.yml core_version_requirement when resolving it.
   DRUPAL_CORE: "11.4.11"

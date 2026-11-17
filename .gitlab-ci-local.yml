@@ -64,7 +64,7 @@ stylelint:
 # ---- phpcs : Drupal + DrupalPractice coding standards ----------------------
 phpcs:
   stage: validate
-  image: public.ecr.aws/docker/library/php:8.3-cli
+  image: public.ecr.aws/docker/library/php:8.5-cli
   before_script:
     - apt-get update -y > /dev/null && apt-get install -y -qq git unzip > /dev/null
     - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -78,7 +78,7 @@ phpcs:
 # ---- phpstan : static analysis at the drupalci default level (0) -----------
 phpstan:
   stage: validate
-  image: public.ecr.aws/docker/library/php:8.3-cli
+  image: public.ecr.aws/docker/library/php:8.5-cli
   before_script:
     - apt-get update -y > /dev/null && apt-get install -y -qq git unzip > /dev/null
     - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
