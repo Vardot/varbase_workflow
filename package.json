@@ -19,24 +19,15 @@
     "phpcbf": "phpcbf --standard=./.phpcs.xml .",
     "lint:yaml": "node ./node_modules/eslint/bin/eslint.js --config=.eslintrc.json --ext .yml .",
     "spellcheck": "cspell lint .",
-    "test": "cucumber-js --config cucumber.js",
-    "test:chromium": "BROWSER=chromium cucumber-js --config cucumber.js",
-    "test:firefox": "BROWSER=firefox cucumber-js --config cucumber.js",
-    "test:webkit": "BROWSER=webkit cucumber-js --config cucumber.js",
-    "generate-reports": "generate-reports"
+    "test": "node ./node_modules/@cucumber/cucumber/bin/cucumber.js --config cucumber.js",
+    "test:chromium": "BROWSER=chromium node ./node_modules/@cucumber/cucumber/bin/cucumber.js --config cucumber.js",
+    "test:firefox": "BROWSER=firefox node ./node_modules/@cucumber/cucumber/bin/cucumber.js --config cucumber.js",
+    "test:webkit": "BROWSER=webkit node ./node_modules/@cucumber/cucumber/bin/cucumber.js --config cucumber.js",
+    "generate-reports": "node ./node_modules/@vardot/varbase-e2e/bin/generate-reports.js"
   },
   "dependencies": {
-    "@cucumber/cucumber": "^10.0.1",
-    "@cucumber/pretty-formatter": "^1.0.0",
-    "@vardot/varbase-e2e": "^2.0.7",
-    "playwright": "^1.60.0",
-    "slick-carousel": "^1.8.0",
-    "tsx": "^4.22.1"
-  },
-  "resolutions": {
-    "@cucumber/cucumber": "10.0.1",
-    "@cucumber/pretty-formatter": "1.0.0",
-    "playwright": "1.60.0"
+    "@vardot/varbase-e2e": "^2.0.8",
+    "slick-carousel": "^1.8.0"
   },
   "devDependencies": {
     "cspell": "^8.16.1",
